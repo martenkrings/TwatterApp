@@ -9,18 +9,16 @@ public class User {
     private String screen_name;
     private String created_at;
     private int follower_count;
-    private int following_count;
     private int favorite_count;
     private int friends_count;
     private String description;
 
-    public User(String user_id_str, String name, String screen_name, String created_at, int follower_count, int following_count, int favorite_count, int friends_count, String description) {
+    public User(String user_id_str, String name, String screen_name, String created_at, int followers_count, int favorite_count, int friends_count, String description) {
         this.user_id_str = user_id_str;
         this.name = name;
         this.screen_name = screen_name;
         this.created_at = created_at;
-        this.follower_count = follower_count;
-        this.following_count = following_count;
+        this.follower_count = followers_count;
         this.favorite_count = favorite_count;
         this.friends_count = friends_count;
         this.description = description;
@@ -45,10 +43,6 @@ public class User {
 
     public int getFollower_count() {
         return follower_count;
-    }
-
-    public int getFollowing_count() {
-        return following_count;
     }
 
     public int getFavorite_count() {
