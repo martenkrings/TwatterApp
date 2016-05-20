@@ -34,6 +34,7 @@ public class Tweet {
         this.id_str = JSON_Tweet.getString("id_str");
         this.text = JSON_Tweet.getString("text");
         this.created_at = JSON_Tweet.getString("created_at");
+        System.out.println("test");
         this.favorite_count = JSON_Tweet.getInt("favorite_count");
         this.retweet_count = JSON_Tweet.getInt("retweet_count");
 

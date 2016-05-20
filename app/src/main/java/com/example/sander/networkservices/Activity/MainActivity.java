@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
             progressString(readAssetIntoString("JSON_example.json"));
         } catch (IOException e) {
             Log.e(TAG, e.getLocalizedMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         tweetList.setAdapter(adapter);
