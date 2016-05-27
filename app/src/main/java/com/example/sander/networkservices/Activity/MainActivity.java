@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.sander.networkservices.Model.Tweet;
@@ -21,7 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "main activity";
+    Button searchButton;
+    EditText searchBar;
 
 
     @Override
@@ -33,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Try to progress the info of the JSON file
         try {
-            String test = readAssetIntoString("JSON_example.json");
-            Log.d(TAG, "(String of json object) " + test);
             progressString(readAssetIntoString("JSON_example.json"));
         } catch (IOException e) {
-            Log.e(TAG, e.getLocalizedMessage());
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getLocalizedMessage());
+                   e.printStackTrace();
                 }
             }
         }
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void progressString(String jsonString) throws JSONException {
         JSONObject gebrObj = new JSONObject(jsonString);
-        Log.d(TAG, gebrObj.toString());
         JSONArray JSON_Objects = gebrObj.getJSONArray("statuses");
         for (int i = 0; i < JSON_Objects.length(); i++) {
             Tweet tweetAdded = new Tweet(JSON_Objects.getJSONObject(i));
