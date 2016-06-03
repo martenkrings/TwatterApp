@@ -10,18 +10,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Sander on 27-5-2016.
  */
-public class MyAssyncTask extends AsyncTask {
+public class MyAssyncBearerTask extends AsyncTask {
     private String searchRequest;
     private String urlSearchRequest;
-    private static final String API_key;
-    private static final String API_secret;
+    private static final String API_key = "VeBNqm0wZy8iaXQ1frmUZZvBM";
+    private static final String API_secret = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
     private String bearerToken = null;
+    private final String CHARSET_UTF_8 = "UTF-8";
 
-    public MyAssyncTask(String searchRequest) throws UnsupportedEncodingException {
+    public MyAssyncBearerTask(String searchRequest) throws UnsupportedEncodingException {
         urlSearchRequest = URLEncoder.encode(searchRequest, "UTF-8");
     }
 

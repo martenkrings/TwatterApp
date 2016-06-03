@@ -20,7 +20,7 @@ public class ListAdapter extends ArrayAdapter {
         super(context, 0, Tweet_Model.getInstance().getTweets());
     }
 
-    //TODO change date format to fit, change atAuthor format to fit , get Image via url(picasso), change ;ayoput of types(spanableString)
+    //TODO change date format to fit, change atAuthor format to fit , get Image via url(picasso), change layout of entities(spanableString)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null){
