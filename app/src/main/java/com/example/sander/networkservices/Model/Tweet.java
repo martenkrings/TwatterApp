@@ -45,7 +45,7 @@ public class Tweet {
         this.retweet_count = JSON_Tweet.getInt("retweet_count");
 
         JSONObject userObject = JSON_Tweet.getJSONObject("user");
-        User newUSer = new User(userObject.getString("id_str"), userObject.getString("name"), userObject.getString("screen_name"), userObject.getString("created_at"), userObject.getInt("followers_count"), userObject.getInt("favourites_count"), userObject.getInt("friends_count"), userObject.getString("description"));
+        User newUSer = new User(userObject);
         System.out.println("test2");
         this.user = newUSer;
     }

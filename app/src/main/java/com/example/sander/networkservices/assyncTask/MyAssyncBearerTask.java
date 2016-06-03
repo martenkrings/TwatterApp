@@ -1,31 +1,36 @@
-package com.example.sander.networkservices;
+package com.example.sander.networkservices.assyncTask;
 
 import android.os.AsyncTask;
 import android.util.Base64;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Sander on 27-5-2016.
  */
 public class MyAssyncBearerTask extends AsyncTask {
+    private static MyAssyncBearerTask instance;
     private String searchRequest;
-    private String urlSearchRequest;
+    //private String urlSearchRequest;
     private static final String API_key = "VeBNqm0wZy8iaXQ1frmUZZvBM";
     private static final String API_secret = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
     private String bearerToken = null;
     private final String CHARSET_UTF_8 = "UTF-8";
 
-    public MyAssyncBearerTask(String searchRequest) throws UnsupportedEncodingException {
-        urlSearchRequest = URLEncoder.encode(searchRequest, "UTF-8");
+    private MyAssyncBearerTask() {
+        //urlSearchRequest = URLEncoder.encode(searchRequest, "UTF-8");
+    }
+
+    public static MyAssyncBearerTask getInstance(){
+        if (instance == null){
+            instance = new MyAssyncBearerTask();
+        }
+        return instance;
     }
 
     @Override
@@ -62,6 +67,8 @@ public class MyAssyncBearerTask extends AsyncTask {
                 BufferedOutputStream os = new BufferedOutputStream(conn.getOutputStream());
                 os.write(body);
                 os.close();
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -74,5 +81,9 @@ public class MyAssyncBearerTask extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+    }
+
+    public String getBearerToken() {
+        return bearerToken;
     }
 }

@@ -1,15 +1,18 @@
 package com.example.sander.networkservices.Activity;
 
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
+import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
 
@@ -21,10 +24,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
-    Button searchButton;
-    EditText searchBar;
+    private Button searchButton;
+    private EditText searchBar;
+
 
 
     @Override
@@ -44,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         tweetList.setAdapter(adapter);
+
+
+        searchBar = (EditText) findViewById(R.id.et_searchbar);
+        searchButton = (Button) findViewById(R.id.b_search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MyAssyncBearerTask.getInstance().getBearerToken() == null){
+                    //xxx
+                }
+                AssyncSearchTask searchTask = new AssyncSearchTask(URLEncoder.encode(searchBar.getText().toString()));
+                searchTask.
+            }
+        });
     }
 
     /**

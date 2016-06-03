@@ -1,5 +1,8 @@
 package com.example.sander.networkservices.Model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Sander on 13-5-2016.
  */
@@ -22,6 +25,17 @@ public class User {
         this.favorite_count = favorite_count;
         this.friends_count = friends_count;
         this.description = description;
+    }
+
+    public User(JSONObject jsonObject) throws JSONException {
+        this.user_id_str = jsonObject.getString("id_str");
+        this.screen_name = jsonObject.getString("name");
+        this.screen_name = jsonObject.getString("screen_name");
+        this.created_at = jsonObject.getString("created_at");
+        this.follower_count = jsonObject.getInt("followers_count");
+        this.favorite_count = jsonObject.getInt("favourites_count");
+        this.friends_count = jsonObject.getInt("friends_count");
+        this.description = jsonObject.getString("description");
     }
 
     public User(String name, String sccreenName) {
