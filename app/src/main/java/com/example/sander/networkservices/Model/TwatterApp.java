@@ -8,6 +8,7 @@ public class TwatterApp {
     private static final String API_key = "VeBNqm0wZy8iaXQ1frmUZZvBM";
     private static final String API_secret = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
     private String bearerToken = null;
+    private User ingelogteUser = null;
 
     private TwatterApp (){
 
@@ -32,7 +33,15 @@ public class TwatterApp {
         return bearerToken;
     }
 
+    public User getIngelogteUser() {
+        return ingelogteUser;
+    }
+
     public void setBearerToken(String bearerToken) {
         this.bearerToken = bearerToken;
+    }
+
+    public void setIngelogteUser(User ingelogteUser) {
+        this.ingelogteUser = ingelogteUser;
     }
 }

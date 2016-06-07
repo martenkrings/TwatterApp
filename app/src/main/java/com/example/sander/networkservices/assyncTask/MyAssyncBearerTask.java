@@ -68,7 +68,7 @@ public class MyAssyncBearerTask extends AsyncTask {
                 TwatterApp.getInstance().setBearerToken(jsonObject.getString("access_token"));
             }
 
-            System.out.println("connection status= " + conn.getResponseCode() + " Should be: " + HttpURLConnection.HTTP_OK);
+            System.out.println("connection status= " + conn.getResponseCode() + " Should be: " + HttpURLConnection.HTTP_OK + " Message: " + conn.getResponseMessage());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

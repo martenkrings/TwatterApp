@@ -3,55 +3,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.sander.networkservices.Activity.ProfileActivity">
 
-    <ImageView
-        android:id="@+id/iv_profile_picture"
-        android:layout_width="100sp"
-        android:layout_height="100sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_porfile_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_profile_picture"
-        android:text="sample text"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        <include layout="@layout/app_bar" />
 
-    <TextView
-        android:id="@+id/tv_profile_screenName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_porfile_name"
-        android:text="sample \@heuker" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/b_profile_bewerken"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="Profiel bewerken"/>
 
-    <TextView
-        android:id="@+id/tv_profile_volgend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15sp"
-        android:layout_below="@+id/tv_profile_screenName"
-        android:text="56 Volgend"/>
+            <ImageView
+                android:id="@+id/iv_profile_picture"
+                android:layout_width="100sp"
+                android:layout_height="100sp" />
 
-    <TextView
-        android:id="@+id/tv_proflile_volgers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tv_profile_volgend"
-        android:layout_toEndOf="@+id/tv_profile_volgend"
-        android:layout_marginLeft="30sp"
-        android:text="22 Volgers"/>
+            <TextView
+                android:id="@+id/tv_porfile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_profile_picture"
+                android:text="sample text"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/tv_profile_screenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_porfile_name"
+                android:text="sample \@heuker" />
+
+            <Button
+                android:id="@+id/b_profile_bewerken"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Profiel bewerken" />
+
+            <TextView
+                android:id="@+id/tv_profile_volgend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_profile_screenName"
+                android:layout_marginTop="15sp"
+                android:text="56 Volgend" />
+
+            <TextView
+                android:id="@+id/tv_proflile_volgers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_profile_volgend"
+                android:layout_marginLeft="30sp"
+                android:layout_toEndOf="@+id/tv_profile_volgend"
+                android:text="22 Volgers" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

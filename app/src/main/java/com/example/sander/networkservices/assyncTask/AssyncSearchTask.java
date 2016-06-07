@@ -38,7 +38,8 @@ public class AssyncSearchTask extends AsyncTask {
 
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
-                //String response = IOU
+                //turn is into objects
+
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
