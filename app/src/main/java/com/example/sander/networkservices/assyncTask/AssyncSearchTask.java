@@ -2,6 +2,8 @@ package com.example.sander.networkservices.assyncTask;
 
 import android.os.AsyncTask;
 
+import com.example.sander.networkservices.Model.TwatterApp;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -32,11 +34,11 @@ public class AssyncSearchTask extends AsyncTask {
             URL url = new URL("https://api.twitter.com/1.1/Search/tweets.json?q=" + searchParameters);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.addRequestProperty("Authorization", "Bearer " + MyAssyncBearerTask.getInstance().getBearerToken());
+            conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
 
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
-                String response = IOU
+                //String response = IOU
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

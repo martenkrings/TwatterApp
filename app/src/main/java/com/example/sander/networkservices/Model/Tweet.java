@@ -46,7 +46,6 @@ public class Tweet {
 
         JSONObject userObject = JSON_Tweet.getJSONObject("user");
         User newUSer = new User(userObject);
-        System.out.println("test2");
         this.user = newUSer;
     }
 

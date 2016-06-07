@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
@@ -50,17 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
         tweetList.setAdapter(adapter);
 
+        MyAssyncBearerTask x = new MyAssyncBearerTask();
+        x.execute();
 
         searchBar = (EditText) findViewById(R.id.et_searchbar);
         searchButton = (Button) findViewById(R.id.b_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MyAssyncBearerTask.getInstance().getBearerToken() == null){
+                if (TwatterApp.getInstance().getBearerToken() == null){
                     //xxx
                 }
                 AssyncSearchTask searchTask = new AssyncSearchTask(URLEncoder.encode(searchBar.getText().toString()));
-                searchTask.
             }
         });
     }
