@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.sander.networkservices.Model.TwatterApp;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,13 +39,16 @@ public class AssyncSearchTask extends AsyncTask {
             URL url = new URL("https://api.twitter.com/1.1/search/tweets.json?q=" + searchParameters);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+
+            //set headers
             conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
             Log.d(TAG, "" + conn.getResponseCode());
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
-                JSONObject jsonObject = new JSONObject(IOUtils.toString(is));
-                Log.d(TAG, jsonObject.toString());
+                JSONArray jsonObjects = new JSONArray(IOUtils.toString(is));
+                Log.d(TAG, jsonObjects.toString());
             }
         } catch (MalformedURLException e) {
             Log.d(TAG, e.getMessage());
