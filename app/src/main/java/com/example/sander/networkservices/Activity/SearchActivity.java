@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.sander.networkservices.Model.SearchTweetsModel;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
@@ -24,6 +25,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        searchBar = (EditText) findViewById(R.id.et_searchbar);
 
         profileIcon = (ImageView) findViewById(R.id.iv_user_icon);
         profileIcon.setOnClickListener(new View.OnClickListener() {
@@ -43,12 +46,13 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        searchBar = (EditText) findViewById(R.id.et_searchbar);
         searchButton = (Button) findViewById(R.id.b_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //SEARCH
+                String search = URLEncoder.encode(searchBar.getText() + "UTF-8");
+                AssyncSearchTask searchTask = new AssyncSearchTask(search);
+                searchTask.execute();
             }
         });
     }

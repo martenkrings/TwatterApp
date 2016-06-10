@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,10 +27,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private Toolbar toolbar;
     private ImageView logoutX;
     private ImageView userIcon;
     private ImageView searchIcon;
+    private ListView tweetList;
+    private ListAdapter adapter;
 
 
 
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        // all the buttons
         logoutX = (ImageView) findViewById(R.id.iv_logout_x);
         logoutX.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 //GO TO LOGIN
             }
         });
-
         userIcon = (ImageView) findViewById(R.id.iv_user_icon);
         userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +71,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //als er niemand is ingelogt laat dat dan gebeuren
         if (TwatterApp.getInstance().getIngelogteUser() == null){
             //GO TO LOGIN
         }
 
-        ListView tweetList = (ListView) findViewById(R.id.lv_listview);
-        ListAdapter adapter = new ListAdapter(this);
+
+        tweetList = (ListView) findViewById(R.id.lv_listview);
+        adapter = new ListAdapter(this);
 
         //Try to progress the info of the JSON file
         try {

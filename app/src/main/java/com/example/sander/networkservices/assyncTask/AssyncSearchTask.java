@@ -1,9 +1,12 @@
 package com.example.sander.networkservices.assyncTask;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.sander.networkservices.Model.TwatterApp;
 
+import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -17,6 +20,7 @@ import java.net.URL;
  * Created by Sander on 3-6-2016.
  */
 public class AssyncSearchTask extends AsyncTask {
+    private static final String TAG = "AssyncSearchTask";
     private String searchParameters;
 
     public AssyncSearchTask(String searchParameters) {
@@ -31,22 +35,25 @@ public class AssyncSearchTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
         try {
-            URL url = new URL("https://api.twitter.com/1.1/Search/tweets.json?q=" + searchParameters);
+            URL url = new URL("https://api.twitter.com/1.1/search/tweets.json?q=" + searchParameters);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
 
+            Log.d(TAG, "" + conn.getResponseCode());
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
-                //turn is into objects
-
+                JSONObject jsonObject = new JSONObject(IOUtils.toString(is));
+                Log.d(TAG, jsonObject.toString());
             }
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Log.d(TAG, e.getMessage());
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            Log.d(TAG, e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, e.getMessage());
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
         }
         return null;
     }

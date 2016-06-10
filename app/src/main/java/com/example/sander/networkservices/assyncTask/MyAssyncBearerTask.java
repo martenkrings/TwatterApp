@@ -2,17 +2,17 @@ package com.example.sander.networkservices.assyncTask;
 
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 
 import com.example.sander.networkservices.Model.TwatterApp;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +22,7 @@ import java.net.URLEncoder;
  * Created by Sander on 27-5-2016.
  */
 public class MyAssyncBearerTask extends AsyncTask {
+    private static final String TAG = "MyAssyncBearerTask";
     private static final String CHARSET_UTF_8 = "UTF-8";
 
     @Override
@@ -49,7 +50,7 @@ public class MyAssyncBearerTask extends AsyncTask {
 
             //Set headers
             conn.setRequestProperty("Authorization", "Basic " + authStringBase64);
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencode;charset=UTF-8");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
             //Set body
             conn.setDoOutput(true);
@@ -60,21 +61,17 @@ public class MyAssyncBearerTask extends AsyncTask {
             os.write(body);
             os.close();
 
+            Log.d(TAG, "" + conn.getResponseCode());
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK){
                 is = conn.getInputStream();
-                JSONObject jsonObject = new JSONObject(is.toString());
-                is.close();
-                System.out.println("Bearer token: " + jsonObject.getString("acces_token"));
-                TwatterApp.getInstance().setBearerToken(jsonObject.getString("access_token"));
+                Log.d(TAG, "Bearer token: " + IOUtils.toString(is));
+                TwatterApp.getInstance().setBearerToken(IOUtils.toString(is));
+                IOUtils.closeQuietly(is);
             }
-
-            System.out.println("connection status= " + conn.getResponseCode() + " Should be: " + HttpURLConnection.HTTP_OK + " Message: " + conn.getResponseMessage());
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Log.d(TAG, "MalformaedURLException: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG, "IOException: " + e.getMessage());
         } finally {
             conn.disconnect();
         }
