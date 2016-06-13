@@ -3,21 +3,29 @@ package com.example.sander.networkservices.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
+import com.example.sander.networkservices.View.ListAdapter;
 import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
     private ImageView profileIcon;
     private ImageView tweetIcon;
     private Button searchButton;
     private EditText searchBar;
+    private ListView searchList;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +33,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         searchBar = (EditText) findViewById(R.id.et_searchbar);
+        searchList = (ListView) findViewById(R.id.lv_search_listview);
+        adapter = new ListAdapter(SearchActivity.this, TwatterApp.getInstance().getSearchResults());
+        searchList.setAdapter(adapter);
 
         profileIcon = (ImageView) findViewById(R.id.iv_user_icon);
         profileIcon.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +59,16 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String search = URLEncoder.encode(searchBar.getText() + "UTF-8");
+                String search = null;
+                try {
+                    search = URLEncoder.encode(searchBar.getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    Log.d(TAG, "UnsupportedEncodingException:" + e.getMessage());
+                }
                 AssyncSearchTask searchTask = new AssyncSearchTask(search);
                 searchTask.execute();
+                finish();
+                startActivity(getIntent());
             }
         });
     }

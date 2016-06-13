@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         tweetList = (ListView) findViewById(R.id.lv_listview);
-        adapter = new ListAdapter(this);
+        adapter = new ListAdapter(this, Tweet_Model.getInstance().getTweets());
 
         //Try to progress the info of the JSON file
         try {

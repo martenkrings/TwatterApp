@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -40,24 +41,30 @@ public class AssyncSearchTask extends AsyncTask {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
+            Log.d(TAG, "bearer token: " + TwatterApp.getInstance().getBearerToken());
+
             //set headers
             conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
             Log.d(TAG, "" + conn.getResponseCode());
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
-                JSONArray jsonObjects = new JSONArray(IOUtils.toString(is));
-                Log.d(TAG, jsonObjects.toString());
+                String results = IOUtils.toString(is);
+                Log.d(TAG, results);
+                JSONObject jsonObject = new JSONObject(results);
+                Log.d(TAG, jsonObject.toString());
+                JSONArray jsonObjects = jsonObject.getJSONArray("statuses");
+                TwatterApp.getInstance().addSearchResults(jsonObjects);
+                Log.d(TAG, "String of JSON array: " + jsonObjects.toString());
             }
         } catch (MalformedURLException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "MalfromedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "ProtocolException: " + e.getMessage());
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "IOException: " + e.getMessage());
         } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "JSONException: " + e.getMessage());
         }
         return null;
     }

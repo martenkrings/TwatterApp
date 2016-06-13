@@ -64,14 +64,17 @@ public class MyAssyncBearerTask extends AsyncTask {
             Log.d(TAG, "" + conn.getResponseCode());
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK){
                 is = conn.getInputStream();
-                Log.d(TAG, "Bearer token: " + IOUtils.toString(is));
-                TwatterApp.getInstance().setBearerToken(IOUtils.toString(is));
+                String string = IOUtils.toString(is);
+                JSONObject jsonObject = new JSONObject(string);
+                TwatterApp.getInstance().setBearerToken(jsonObject.getString("access_token"));
                 IOUtils.closeQuietly(is);
             }
         } catch (MalformedURLException e) {
             Log.d(TAG, "MalformaedURLException: " + e.getMessage());
         } catch (IOException e) {
             Log.d(TAG, "IOException: " + e.getMessage());
+        } catch (JSONException e) {
+            Log.d(TAG, "JSONException: " + e.getMessage());
         } finally {
             conn.disconnect();
         }
