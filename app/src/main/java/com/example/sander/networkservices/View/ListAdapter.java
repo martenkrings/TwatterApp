@@ -1,6 +1,7 @@
 package com.example.sander.networkservices.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.Model.Url;
 import com.example.sander.networkservices.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,10 +38,12 @@ public class ListAdapter extends ArrayAdapter {
         ImageView image = (ImageView) convertView.findViewById(R.id.iv_picture);
 
         Tweet tweet = (Tweet) getItem(position);
+        Log.d("USERNAME: ", tweet.getUser().getName());
         author.setText(tweet.getUser().getName());
         atAuthor.setText("@" + tweet.getUser().getScreen_name());
         timePassed.setText(tweet.getCreated_at());
         tweetText.setText(tweet.getText());
+        Picasso.with(getContext()).load(tweet.getUser().getImageUrl()).into(image);
         return convertView;
     }
 }

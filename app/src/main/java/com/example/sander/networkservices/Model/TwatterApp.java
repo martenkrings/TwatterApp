@@ -57,18 +57,14 @@ public class TwatterApp {
     }
 
     public void addSearchResults(JSONArray jsonObjects){
-        Log.d(TAG, "start of addSearchresults");
         try {
-            for (Tweet tweet: searchResults){
-                searchResults.remove(tweet);
+            while(!searchResults.isEmpty()){
+                searchResults.remove(0);
             }
-            Log.d(TAG, "past deleting");
             for (int i = 0; i < jsonObjects.length(); i++) {
                 Tweet tweetAdded = new Tweet(jsonObjects.getJSONObject(i));
-                Log.d(TAG, tweetAdded.toString());
                 searchResults.add(tweetAdded);
             }
-            Log.d(TAG, "Tweets: " + searchResults.toString());
         } catch (JSONException e) {
             Log.d(TAG, "JSONException: " + e.getMessage());
         }
