@@ -46,20 +46,11 @@
                 android:text="Profiel bewerken" />
 
             <TextView
-                android:id="@+id/tv_profile_volgend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_profile_screenName"
-                android:layout_marginTop="15sp"
-                android:text="56 Volgend" />
-
-            <TextView
                 android:id="@+id/tv_proflile_volgers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_profile_volgend"
+                android:layout_below="@+id/tv_profile_screenName"
                 android:layout_marginLeft="30sp"
-                android:layout_toEndOf="@+id/tv_profile_volgend"
                 android:text="22 Volgers" />
 
         </RelativeLayout>

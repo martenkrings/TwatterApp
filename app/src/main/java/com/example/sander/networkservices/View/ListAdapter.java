@@ -38,7 +38,6 @@ public class ListAdapter extends ArrayAdapter {
         ImageView image = (ImageView) convertView.findViewById(R.id.iv_picture);
 
         Tweet tweet = (Tweet) getItem(position);
-        Log.d("USERNAME: ", tweet.getUser().getName());
         author.setText(tweet.getUser().getName());
         atAuthor.setText("@" + tweet.getUser().getScreen_name());
         timePassed.setText(tweet.getCreated_at());

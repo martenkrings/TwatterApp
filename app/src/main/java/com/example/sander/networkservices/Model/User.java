@@ -18,6 +18,7 @@ public class User {
     private int friends_count;
     private String description;
     private String imageUrl;
+    private int followed_count;
 
     public User(String user_id_str, String name, String screen_name, String created_at, int followers_count, int favorite_count, int friends_count, String description) {
         this.user_id_str = user_id_str;
