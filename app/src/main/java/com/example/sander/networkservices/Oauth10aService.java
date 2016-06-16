@@ -14,6 +14,7 @@ public class Oauth10aService extends DefaultApi10a {
     }
 
     private Oauth10aService() {
+
     }
 
     @Override
@@ -30,4 +31,6 @@ public class Oauth10aService extends DefaultApi10a {
     public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
         return null;
     }
+
+
 }
