@@ -17,27 +17,27 @@
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/x" />
+            />
 
         <ImageView
             android:id="@+id/iv_user_icon"
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_toLeftOf="@+id/iv_logout_x"
-            android:src="@drawable/user_icon"/>
+            />
 
         <ImageView
             android:id="@+id/iv_search_icon"
             android:layout_width="50sp"
             android:layout_height="50sp"
             android:layout_toLeftOf="@id/iv_user_icon"
-            android:src="@drawable/search_button"/>
+            />
 
         <ImageView
             android:id="@+id/iv_tweet_icon"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:src="@drawable/tweet"/>
+            />
 
     </RelativeLayout>
 
