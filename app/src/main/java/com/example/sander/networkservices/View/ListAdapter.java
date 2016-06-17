@@ -33,14 +33,14 @@ public class ListAdapter extends ArrayAdapter {
         }
         TextView author = (TextView) convertView.findViewById(R.id.tv_author_name);
         TextView atAuthor = (TextView) convertView.findViewById(R.id.tv_atAuthor);
-        TextView timePassed = (TextView) convertView.findViewById(R.id.tv_time_passed);
+        TextView date = (TextView) convertView.findViewById(R.id.tv_time_passed);
         TextView tweetText = (TextView) convertView.findViewById(R.id.tv_tweet_text);
         ImageView image = (ImageView) convertView.findViewById(R.id.iv_picture);
 
         Tweet tweet = (Tweet) getItem(position);
         author.setText(tweet.getUser().getName());
         atAuthor.setText("@" + tweet.getUser().getScreen_name());
-        timePassed.setText(tweet.getCreated_at());
+        date.setText(tweet.getCreated_at());
         tweetText.setText(tweet.getText());
         Picasso.with(getContext()).load(tweet.getUser().getImageUrl()).into(image);
         return convertView;

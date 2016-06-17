@@ -49,19 +49,17 @@ public class Tweet {
         this.user = newUSer;
     }
 
-    @Nullable
-    public String getTimePassed(){
+    public String getCreated_at() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
+        sdf.setLenient(true);
         Date date = new Date();
-        Date dateCreated;
-        Date returnDate = null;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        try{
-            dateCreated = format.parse(created_at);
-            returnDate = new Date(date.getTime() - dateCreated.getTime());
-        } catch (ParseException e){
-            Log.e(TAG, e.getLocalizedMessage());
+        try {
+            date = sdf.parse(created_at);
+        } catch (ParseException e) {
+            Log.d(TAG, "ParseException: " + e.getMessage());
         }
-        return returnDate.toString();
+        SimpleDateFormat sd = new SimpleDateFormat("dd MMM");
+        return sd.format(date).toString();
     }
 
     public String getId_str() {
@@ -70,10 +68,6 @@ public class Tweet {
 
     public String getText() {
         return text;
-    }
-
-    public String getCreated_at() {
-        return created_at;
     }
 
     public User getUser() {

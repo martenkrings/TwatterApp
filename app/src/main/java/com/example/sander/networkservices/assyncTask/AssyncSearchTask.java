@@ -41,8 +41,6 @@ public class AssyncSearchTask extends AsyncTask {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            Log.d(TAG, "bearer token: " + TwatterApp.getInstance().getBearerToken());
-
             //set headers
             conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
 

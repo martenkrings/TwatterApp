@@ -77,7 +77,11 @@ public class User {
     }
 
     public String getScreen_name() {
-        return screen_name;
+        if (screen_name.length() > 10){
+            return screen_name.substring(0, 7) + "...";
+        }else {
+            return screen_name;
+        }
     }
 
     public String getImageUrl() {

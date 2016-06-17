@@ -4,7 +4,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 
@@ -16,9 +16,11 @@ public class TwatterApp {
     private static TwatterApp instance;
     private static final String API_key = "VeBNqm0wZy8iaXQ1frmUZZvBM";
     private static final String API_secret = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
-    private String bearerToken = null;
+    private static  String accessToken = null;
+    private static String bearerToken = null;
     private User ingelogteUser = null;
     private ArrayList<Tweet> searchResults;
+    private ArrayList<Tweet> userTimeLine;
 
     private TwatterApp (){
         searchResults = new ArrayList<>();
@@ -72,5 +74,21 @@ public class TwatterApp {
 
     public ArrayList<Tweet> getSearchResults() {
         return searchResults;
+    }
+
+    public static String getAccessToken() {
+        return accessToken;
+    }
+
+    public static void setAccesToken(String accessToken) {
+        TwatterApp.accessToken = accessToken;
+    }
+
+    public ArrayList<Tweet> getUserTimeLine() {
+        return userTimeLine;
+    }
+
+    public void setUserTimeLine(ArrayList<Tweet> userTimeLine) {
+        this.userTimeLine = userTimeLine;
     }
 }
