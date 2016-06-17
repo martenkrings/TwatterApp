@@ -15,14 +15,16 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 
 public class AuthorizationActivity extends AppCompatActivity {
 
+    String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
 
         WebView wv = (WebView) findViewById(R.id.wvAuthentication);
-        String url = MyOAuthService.getInstance().getService()
-                .getAuthorizationUrl(MyOAuthService.getInstance().getService().getRequestToken());
+        AsyncRequestTokenTask task = new AsyncRequestTokenTask();
+        task.execute();
         wv.loadUrl(url);
 
         wv.setWebViewClient(new WebViewClient() {
@@ -40,6 +42,10 @@ public class AuthorizationActivity extends AppCompatActivity {
         });
     }
 
+    public void setRequestUrl(String requestUrl) {
+        url = requestUrl;
+    }
+
     public void saveAccessToken(OAuth1AccessToken accessToken) {
         String token = accessToken.getToken();
         String secret = accessToken.getTokenSecret();
@@ -48,6 +54,7 @@ public class AuthorizationActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("ACCESSTOKEN_TOKEN", token);
         editor.putString("ACCESSTOKEN_SECRET", secret);
+        editor.apply();
     }
 
     private class AsyncAccessTask extends AsyncTask<String, Void, OAuth1AccessToken> {
@@ -65,6 +72,20 @@ public class AuthorizationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(OAuth1AccessToken oAuth1AccessToken) {
             AuthorizationActivity.this.saveAccessToken(oAuth1AccessToken);
+        }
+    }
+
+    private class AsyncRequestTokenTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return MyOAuthService.getInstance().getService()
+                    .getAuthorizationUrl(MyOAuthService.getInstance().getService().getRequestToken());
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            AuthorizationActivity.this.setRequestUrl(s);
         }
     }
 }
