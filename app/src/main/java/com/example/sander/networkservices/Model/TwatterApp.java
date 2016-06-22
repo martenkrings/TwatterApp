@@ -2,6 +2,8 @@ package com.example.sander.networkservices.Model;
 
 import android.util.Log;
 
+import com.github.scribejava.core.model.OAuth1AccessToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -16,9 +18,9 @@ public class TwatterApp {
     private static TwatterApp instance;
     private static final String API_key = "VeBNqm0wZy8iaXQ1frmUZZvBM";
     private static final String API_secret = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
-    private static  String accessToken = null;
+    private static OAuth1AccessToken accessToken = null;
     private static String bearerToken = null;
-    private User ingelogteUser = null;
+    private User ingelogteUser = new User("1", "sanderGW", "SanderGW", "Wed Apr 20 13:01:49 +0000 2016", 50, 40, 60, "een dummy user", "https://lh3.googleusercontent.com/32GbAQWrubLZX4mVPClpLN0fRbAd3ru5BefccDAj7nKD8vz-_NzJ1ph_4WMYNefp3A=w300-rw");
     private ArrayList<Tweet> searchResults;
     private ArrayList<Tweet> userTimeLine;
 
@@ -76,11 +78,11 @@ public class TwatterApp {
         return searchResults;
     }
 
-    public static String getAccessToken() {
+    public static OAuth1AccessToken getAccessToken() {
         return accessToken;
     }
 
-    public static void setAccesToken(String accessToken) {
+    public static void setAccesToken(OAuth1AccessToken accessToken) {
         TwatterApp.accessToken = accessToken;
     }
 
@@ -91,4 +93,6 @@ public class TwatterApp {
     public void setUserTimeLine(ArrayList<Tweet> userTimeLine) {
         this.userTimeLine = userTimeLine;
     }
+
+
 }

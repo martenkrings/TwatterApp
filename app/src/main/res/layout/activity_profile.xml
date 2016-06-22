@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Profiel naam bewerken" />
+                android:text="Naam bewerken" />
 
             <Button
                 android:id="@+id/b_profile_friends"
@@ -61,12 +61,12 @@
                 android:layout_marginLeft="30sp"
                 android:text="22 Volgers" />
 
-            <ListView
-                android:id="@+id/lv_profile_timeline"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/et_profiel_naam"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_proflile_volgers"></ListView>
-
+                android:layout_toLeftOf="@+id/b_profile_naam_bewerken"
+                android:hint="profiel naam" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

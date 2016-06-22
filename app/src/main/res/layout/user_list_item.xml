@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_profile_picture_friend_list"
+        android:layout_width= "75sp"
+        android:layout_height= "75sp" />
+
+    <TextView
+        android:id="@+id/tv_porfile_name_friend_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_profile_picture_friend_list"
+        android:text="placeholder"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/tv_porfile_screen_name_friend_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_porfile_name_friend_list"
+        android:text="placeholder2"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_proflile_volgers_friend_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_porfile_name_friend_list"
+        android:layout_toEndOf="@+id/iv_profile_picture_friend_list"
+        android:text="50"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

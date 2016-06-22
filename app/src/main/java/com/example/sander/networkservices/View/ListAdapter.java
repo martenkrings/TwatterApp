@@ -1,6 +1,10 @@
 package com.example.sander.networkservices.View;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.sander.networkservices.Activity.MainActivity;
+import com.example.sander.networkservices.Activity.SearchActivity;
+import com.example.sander.networkservices.Model.Hasthag;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.Model.Url;
+import com.example.sander.networkservices.Model.UserMention;
 import com.example.sander.networkservices.R;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +33,7 @@ public class ListAdapter extends ArrayAdapter {
         super(context, 0, tweets);
     }
 
-    //TODO change date format to fit, change atAuthor format to fit , get Image via url(picasso), change layout of entities(spanableString)
+    //TODO change layout of entities(spanableString)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null){
@@ -41,8 +49,21 @@ public class ListAdapter extends ArrayAdapter {
         author.setText(tweet.getUser().getName());
         atAuthor.setText("@" + tweet.getUser().getScreen_name());
         date.setText(tweet.getCreated_at());
-        tweetText.setText(tweet.getText());
         Picasso.with(getContext()).load(tweet.getUser().getImageUrl()).into(image);
+        SpannableString spannableString = new SpannableString(tweet.getText());
+        for (Hasthag hasthag:tweet.getHasthags()) {
+            int[] indices = hasthag.getIndeces();
+            spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), indices[0], indices[1], 0);
+        }
+        for (Url url:tweet.getUrls()) {
+            int[] indices = url.getIndeces();
+            spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), indices[0], indices[1], 0);
+        }
+        for (UserMention userMention:tweet.getUserMentions()) {
+            int[] indices = userMention.getIndeces();
+            spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), indices[0], indices[1], 0);
+        }
+        tweetText.setText(spannableString);
         return convertView;
     }
 }

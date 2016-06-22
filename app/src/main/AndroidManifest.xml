@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.SearchActivity" />
-        <activity android:name=".Activity.AuthorizationActivity"></activity>
+        <activity android:name=".Activity.AuthorizationActivity" />
+        <activity android:name=".Activity.FriendListActivity"></activity>
     </application>
 
 </manifest>

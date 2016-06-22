@@ -5,11 +5,11 @@ package com.example.sander.networkservices.Model;
  */
 public class UserMention extends Entitie {
     private String name;
+    private String screenName;
     private String id_str;
 
-    public UserMention(int[] indeces, String name, String id_str) {
+    public UserMention(int[] indeces, String name) {
         super(indeces);
         this.name = name;
-        this.id_str = id_str;
     }
 }

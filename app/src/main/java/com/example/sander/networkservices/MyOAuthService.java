@@ -11,9 +11,7 @@ public class MyOAuthService {
     public final String CONSUMER_KEY = "VeBNqm0wZy8iaXQ1frmUZZvBM";
     public final String CONSUMER_SECRET = "nOicddrX7CV0UwLVpxpTOAlzWAo3bJf2b1CL9vF4Lx9Mc5p9Uz";
     public final String CALLBACK_URL = "https://www.google.nl/";
-
     private OAuth10aService service;
-
     private static MyOAuthService ourInstance = new MyOAuthService();
 
     private MyOAuthService() {

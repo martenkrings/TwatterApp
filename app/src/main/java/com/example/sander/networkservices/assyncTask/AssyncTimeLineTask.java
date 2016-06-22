@@ -4,8 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.sander.networkservices.Model.TwatterApp;
+import com.example.sander.networkservices.Model.Tweet;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by Sander on 9-6-2016.
@@ -38,17 +41,22 @@ public class AssyncTimeLineTask extends AsyncTask {
                 InputStream is = conn.getInputStream();
                 String results = IOUtils.toString(is);
                 Log.d(TAG, results);
-                JSONObject jsonObject = new JSONObject(results);
-                Log.d(TAG, jsonObject.toString());
+                JSONArray jsonArray = new JSONArray(results);
+                Log.d(TAG, jsonArray.toString());
+                ArrayList<Tweet> tweetsFound = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    tweetsFound.add(new Tweet(jsonObject));
+                }
             }
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Log.d(TAG, "MalformedUrlException: " + e.getMessage());
         } catch (ProtocolException e) {
-            e.printStackTrace();
+            Log.d(TAG, "ProtocolException: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "IOException: " + e.getMessage());
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG, "JSONException: " + e.getMessage());
         }
         return null;
     }
