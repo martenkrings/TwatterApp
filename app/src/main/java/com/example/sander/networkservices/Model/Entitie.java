@@ -9,4 +9,8 @@ public class Entitie {
     public Entitie(int[] indeces) {
         this.indeces = indeces;
     }
+
+    public int[] getIndeces() {
+        return indeces;
+    }
 }

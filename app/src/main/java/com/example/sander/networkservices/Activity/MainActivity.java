@@ -1,6 +1,8 @@
 package com.example.sander.networkservices.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import android.widget.ListView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.assyncTask.AssyncTimeLineTask;
 import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
+import com.github.scribejava.core.model.OAuth1AccessToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("ACCESSTOKEN_TOKEN", "null");
+        String secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
+        if (token.equals("null") || secret.equals("null")){
+            Intent intent = new Intent(this, AuthorizationActivity.class);
+            startActivity(intent);
+        }
+        OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
+        TwatterApp.setAccesToken(accessToken);
+        */
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,14 +86,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //als er niemand is ingelogt laat dat dan gebeuren
-        if (TwatterApp.getInstance().getIngelogteUser() == null){
-            //GO TO LOGIN
-        }
-
 
         tweetList = (ListView) findViewById(R.id.lv_listview);
-        adapter = new ListAdapter(this, Tweet_Model.getInstance().getTweets());
+        adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
 
         //Try to progress the info of the JSON file
         try {

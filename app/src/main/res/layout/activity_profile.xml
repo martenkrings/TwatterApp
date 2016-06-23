@@ -39,11 +39,19 @@
                 android:text="sample \@heuker" />
 
             <Button
-                android:id="@+id/b_profile_bewerken"
+                android:id="@+id/b_profile_naam_bewerken"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Profiel bewerken" />
+                android:text="Naam bewerken" />
+
+            <Button
+                android:id="@+id/b_profile_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/b_profile_naam_bewerken"
+                android:text="Vrienden"/>
 
             <TextView
                 android:id="@+id/tv_proflile_volgers"
@@ -53,6 +61,12 @@
                 android:layout_marginLeft="30sp"
                 android:text="22 Volgers" />
 
+            <EditText
+                android:id="@+id/et_profiel_naam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/b_profile_naam_bewerken"
+                android:hint="profiel naam" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

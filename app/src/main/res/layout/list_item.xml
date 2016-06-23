@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:paddingRight="15sp"
         android:text="2h ago"/>
 
     <TextView

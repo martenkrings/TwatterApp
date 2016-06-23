@@ -18,9 +18,8 @@ public class User {
     private int friends_count;
     private String description;
     private String imageUrl;
-    private int followed_count;
 
-    public User(String user_id_str, String name, String screen_name, String created_at, int followers_count, int favorite_count, int friends_count, String description) {
+    public User(String user_id_str, String name, String screen_name, String created_at, int followers_count, int favorite_count, int friends_count, String description, String imageUrl) {
         this.user_id_str = user_id_str;
         this.name = name;
         this.screen_name = screen_name;
@@ -29,6 +28,7 @@ public class User {
         this.favorite_count = favorite_count;
         this.friends_count = friends_count;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public User(JSONObject jsonObject) throws JSONException {
@@ -77,7 +77,11 @@ public class User {
     }
 
     public String getScreen_name() {
-        return screen_name;
+        if (screen_name.length() > 10){
+            return screen_name.substring(0, 7) + "...";
+        }else {
+            return screen_name;
+        }
     }
 
     public String getImageUrl() {
