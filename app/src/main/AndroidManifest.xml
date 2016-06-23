@@ -20,7 +20,9 @@
         <activity android:name=".Activity.ProfileActivity" />
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.AuthorizationActivity" />
-        <activity android:name=".Activity.FriendListActivity"></activity>
+        <activity android:name=".Activity.FriendListActivity" />
+        <activity android:name=".Activity.FollowersListActivity" />
+        <activity android:name=".Activity.TweetActivity"></activity>
     </application>
 
 </manifest>
