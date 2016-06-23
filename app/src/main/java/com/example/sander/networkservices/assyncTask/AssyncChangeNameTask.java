@@ -26,7 +26,7 @@ import java.net.URLEncoder;
  * Created by Sander on 21-6-2016.
  */
 public class AssyncChangeNameTask extends AsyncTask<String, Void, Boolean> {
-    private static final String TAG = "AssyncVhangeNameTask";
+    private static final String TAG = "AssyncChangeNameTask";
 
     @Override
     protected Boolean doInBackground(String... params) {
