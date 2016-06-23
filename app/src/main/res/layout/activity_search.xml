@@ -16,8 +16,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/et_searchbar"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:hint="Search..." />
+
+            <Button
+                android:id="@+id/b_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/et_searchbar"
+                android:text="Search!" />
+
             <ListView
-                android:id="@+id/lv_listview"
+                android:id="@+id/lv_search_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/et_searchbar"></ListView>

@@ -1,15 +1,19 @@
 package com.example.sander.networkservices.Activity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
 
@@ -23,16 +27,58 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    Button searchButton;
-    EditText searchBar;
+    private static final String TAG = "MainActivity";
+    private Toolbar toolbar;
+    private ImageView logoutX;
+    private ImageView userIcon;
+    private ImageView searchIcon;
+    private ListView tweetList;
+    private ListAdapter adapter;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView tweetList = (ListView) findViewById(R.id.lv_listview);
-        ListAdapter adapter = new ListAdapter(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // all the buttons
+        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
+        logoutX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwatterApp.getInstance().setIngelogteUser(null);
+                //GO TO LOGIN
+            }
+        });
+        userIcon = (ImageView) findViewById(R.id.iv_user_icon);
+        userIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //als er niemand is ingelogt laat dat dan gebeuren
+        if (TwatterApp.getInstance().getIngelogteUser() == null){
+            //GO TO LOGIN
+        }
+
+
+        tweetList = (ListView) findViewById(R.id.lv_listview);
+        adapter = new ListAdapter(this, Tweet_Model.getInstance().getTweets());
 
         //Try to progress the info of the JSON file
         try {
@@ -44,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         tweetList.setAdapter(adapter);
+
+        MyAssyncBearerTask x = new MyAssyncBearerTask();
+        x.execute();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.example.sander.networkservices.View;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,18 @@ import android.widget.TextView;
 
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.Model.Url;
 import com.example.sander.networkservices.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by Sander on 13-5-2016.
  */
 public class ListAdapter extends ArrayAdapter {
-    public ListAdapter(Context context) {
-        super(context, 0, Tweet_Model.getInstance().getTweets());
+    public ListAdapter(Context context, ArrayList<Tweet> tweets) {
+        super(context, 0, tweets);
     }
 
     //TODO change date format to fit, change atAuthor format to fit , get Image via url(picasso), change layout of entities(spanableString)
@@ -37,8 +42,7 @@ public class ListAdapter extends ArrayAdapter {
         atAuthor.setText("@" + tweet.getUser().getScreen_name());
         timePassed.setText(tweet.getCreated_at());
         tweetText.setText(tweet.getText());
-        //image.setImageResource(tweet.getUser().xxxxxxxxxxxxxxxx);
-
+        Picasso.with(getContext()).load(tweet.getUser().getImageUrl()).into(image);
         return convertView;
     }
 }
