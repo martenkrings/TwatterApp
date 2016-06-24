@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
-import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
+import com.example.sander.networkservices.assyncTask.MyAsyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
 import com.github.scribejava.core.model.OAuth1AccessToken;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         tweetList.setAdapter(adapter);
 
-        MyAssyncBearerTask x = new MyAssyncBearerTask();
+        MyAsyncBearerTask x = new MyAsyncBearerTask();
         x.execute();
     }
 

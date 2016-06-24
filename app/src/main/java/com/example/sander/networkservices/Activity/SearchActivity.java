@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
-import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
+import com.example.sander.networkservices.assyncTask.AsyncSearchTask;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -65,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                 } catch (UnsupportedEncodingException e) {
                     Log.d(TAG, "UnsupportedEncodingException:" + e.getMessage());
                 }
-                AssyncSearchTask searchTask = new AssyncSearchTask(search);
+                AsyncSearchTask searchTask = new AsyncSearchTask(search);
                 searchTask.execute();
                 finish();
                 startActivity(getIntent());

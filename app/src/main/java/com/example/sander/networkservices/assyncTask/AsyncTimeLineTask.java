@@ -22,8 +22,8 @@ import java.util.ArrayList;
 /**
  * Created by Sander on 9-6-2016.
  */
-public class AssyncTimeLineTask extends AsyncTask {
-    private static final String TAG = "AssyncTimeLineTask";
+public class AsyncTimeLineTask extends AsyncTask {
+    private static final String TAG = "AsyncTimeLineTask";
 
     @Override
     protected Object doInBackground(Object[] params) {

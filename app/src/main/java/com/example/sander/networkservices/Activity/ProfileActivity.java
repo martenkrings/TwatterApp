@@ -8,15 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
-import com.example.sander.networkservices.View.ListAdapter;
-import com.example.sander.networkservices.assyncTask.AssyncChangeNameTask;
-import com.example.sander.networkservices.assyncTask.AssyncGetFriendListTask;
-import com.example.sander.networkservices.assyncTask.AssyncTimeLineTask;
+import com.example.sander.networkservices.assyncTask.AsyncChangeNameTask;
+import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
+import com.example.sander.networkservices.assyncTask.AsyncTimeLineTask;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -41,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        AssyncTimeLineTask assyncTimeLineTask = new AssyncTimeLineTask();
+        AsyncTimeLineTask assyncTimeLineTask = new AsyncTimeLineTask();
         assyncTimeLineTask.execute();
 
         //connect with views
@@ -92,7 +90,7 @@ public class ProfileActivity extends AppCompatActivity {
         vriendenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AssyncGetFriendListTask assyncGetFriendListTask = new AssyncGetFriendListTask();
+                AsyncGetFriendListTask assyncGetFriendListTask = new AsyncGetFriendListTask();
                 try {
                     JSONArray jsonArray = assyncGetFriendListTask.execute().get();
                 } catch (InterruptedException e) {
@@ -108,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!changeName.getText().equals("")){
-                    AssyncChangeNameTask assyncChangeNameTask = new AssyncChangeNameTask();
+                    AsyncChangeNameTask assyncChangeNameTask = new AsyncChangeNameTask();
                     assyncChangeNameTask.execute(changeName.getText().toString());
                     finish();
                     startActivity(getIntent());
