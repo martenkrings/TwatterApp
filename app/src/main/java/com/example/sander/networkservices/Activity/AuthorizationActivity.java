@@ -11,11 +11,13 @@ import android.webkit.WebViewClient;
 
 import com.example.sander.networkservices.MyOAuthService;
 import com.example.sander.networkservices.R;
+import com.example.sander.networkservices.TwitterAPI;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 
 public class AuthorizationActivity extends AppCompatActivity {
 
-    String url = "https://api.twitter.com/1.1/account/verify_credentials.json";
+    private String url;
+    private WebView wv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +25,9 @@ public class AuthorizationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_authorization);
 
 
-        WebView wv = (WebView) findViewById(R.id.wvAuthentication);
+        wv = (WebView) findViewById(R.id.wvAuthentication);
         AsyncRequestTokenTask task = new AsyncRequestTokenTask();
         task.execute();
-        wv.loadUrl(url);
 
         wv.setWebViewClient(new WebViewClient() {
             @Override
@@ -45,6 +46,7 @@ public class AuthorizationActivity extends AppCompatActivity {
 
     public void setRequestUrl(String requestUrl) {
         url = requestUrl;
+        wv.loadUrl(url);
     }
 
     public void saveAccessToken(OAuth1AccessToken accessToken) {
