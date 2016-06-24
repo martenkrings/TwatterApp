@@ -1,11 +1,9 @@
 package com.example.sander.networkservices.View;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.sander.networkservices.Activity.MainActivity;
-import com.example.sander.networkservices.Activity.SearchActivity;
 import com.example.sander.networkservices.Model.Hasthag;
 import com.example.sander.networkservices.Model.Tweet;
-import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.Model.Url;
 import com.example.sander.networkservices.Model.UserMention;
 import com.example.sander.networkservices.R;
-import com.example.sander.networkservices.controller.RetweetCallbacks;
+import com.example.sander.networkservices.assyncTask.AsyncRetweetTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,17 +25,16 @@ import java.util.ArrayList;
  * Created by Sander on 13-5-2016.
  */
 public class ListAdapter extends ArrayAdapter {
+
+    private ArrayList<Tweet> tweets;
+
     public ListAdapter(Context context, ArrayList<Tweet> tweets) {
         super(context, 0, tweets);
+        this.tweets = tweets;
     }
 
-    private RetweetCallbacks retweetCallbacks;
-
-
-
-    //TODO change layout of entities(spanableString)
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
@@ -69,6 +63,16 @@ public class ListAdapter extends ArrayAdapter {
             spannableString.setSpan(new ForegroundColorSpan(Color.BLUE), indices[0], indices[1], 0);
         }
         tweetText.setText(spannableString);
+
+        ImageView retweet = (ImageView) convertView.findViewById(R.id.iv_retweet_button);
+        retweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncRetweetTask retweetTask = new AsyncRetweetTask();
+                retweetTask.execute(ListAdapter.this.tweets.get(position).getId_str());
+            }
+        });
+
         return convertView;
     }
 }

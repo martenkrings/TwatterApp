@@ -1,13 +1,10 @@
 package com.example.sander.networkservices.Activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,13 +12,9 @@ import android.widget.ListView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
-import com.example.sander.networkservices.assyncTask.AssyncTimeLineTask;
-import com.example.sander.networkservices.assyncTask.AsyncRetweetTask;
 import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
-import com.example.sander.networkservices.controller.RetweetCallbacks;
-import com.github.scribejava.core.model.OAuth1AccessToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +25,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class MainActivity extends AppCompatActivity implements RetweetCallbacks {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
     private ImageView logoutX;
     private ImageView userIcon;
     private ImageView searchIcon;
+    private ImageView tweetIcon;
     private ListView tweetList;
     private ListAdapter adapter;
 
@@ -84,6 +78,14 @@ public class MainActivity extends AppCompatActivity implements RetweetCallbacks 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+        tweetIcon = (ImageView) findViewById(R.id.iv_tweet_icon);
+        tweetIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TweetActivity.class);
                 startActivity(intent);
             }
         });
@@ -154,9 +156,4 @@ public class MainActivity extends AppCompatActivity implements RetweetCallbacks 
         }
     }
 
-    @Override
-    public void retweet(int id) {
-        AsyncRetweetTask retweetTask = new AsyncRetweetTask();
-        retweetTask.execute(Integer.toString(id));
-    }
 }

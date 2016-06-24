@@ -51,6 +51,12 @@
         android:layout_alignParentStart="true">
 
 
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="40sp"
+            android:id="@+id/iv_retweet_button"
+            android:src="@drawable/retweet"/>
     </LinearLayout>
 
 </RelativeLayout>

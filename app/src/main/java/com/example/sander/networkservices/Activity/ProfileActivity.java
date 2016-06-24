@@ -27,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView tweetIcon;
     private ImageView searchIcon;
     private ImageView profilePicture;
+    private ImageView logoutX;
     private TextView profileName;
     private TextView profileScreenName;
     private TextView volgers;
@@ -60,6 +61,15 @@ public class ProfileActivity extends AppCompatActivity {
         volgers.setText(TwatterApp.getInstance().getIngelogteUser().getFollower_count() + "");
 
         //configure buttons
+        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
+        logoutX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwatterApp.getInstance().setIngelogteUser(null);
+                //GO TO LOGIN
+            }
+        });
+
         searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +82,12 @@ public class ProfileActivity extends AppCompatActivity {
         tweetIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, TweetActivity.class);
                 startActivity(intent);
             }
         });
+
+
 
         vriendenButton.setOnClickListener(new View.OnClickListener() {
             @Override
