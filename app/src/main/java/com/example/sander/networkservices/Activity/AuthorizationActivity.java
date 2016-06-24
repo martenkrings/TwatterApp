@@ -15,7 +15,7 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 
 public class AuthorizationActivity extends AppCompatActivity {
 
-    String url;
+    String url = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
