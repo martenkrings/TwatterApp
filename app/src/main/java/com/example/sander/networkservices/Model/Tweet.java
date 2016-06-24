@@ -51,7 +51,6 @@ public class Tweet {
         //add entites
         JSONObject jsonEntities = JSON_Tweet.getJSONObject("entities");
 
-
         //add hasthags
         JSONArray jsonHashtags = jsonEntities.getJSONArray("hashtags");
         //if there are no hashtags dont try to add any
@@ -86,8 +85,6 @@ public class Tweet {
                 addUserMention(new UserMention(indices, jsonUserMention.getString("name")));
             }
         }
-        Log.d(TAG, "hasthags: " + getHasthags());
-
         //add user
         JSONObject userObject = JSON_Tweet.getJSONObject("user");
         User newUSer = new User(userObject);

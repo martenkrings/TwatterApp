@@ -70,7 +70,7 @@ public class FriendListActivity extends AppCompatActivity {
         tweetIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FriendListActivity.this, TweetActivity.class);
+                Intent intent = new Intent(FriendListActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

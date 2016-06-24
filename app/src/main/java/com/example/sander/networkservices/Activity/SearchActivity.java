@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         tweetIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, TweetActivity.class);
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

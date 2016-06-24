@@ -11,6 +11,7 @@ import com.github.scribejava.core.model.Verb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Sander on 22-6-2016.
@@ -20,14 +21,17 @@ public class AsyncGetFriendListTask extends AsyncTask<Void, Void, JSONArray> {
 
     @Override
     protected JSONArray doInBackground(Void... params) {
-        final OAuthRequest request = new OAuthRequest(Verb.POST, "https://api.twitter.com/1.1/friends/list.json", MyOAuthService.getInstance().getService());
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/friends/list.json", MyOAuthService.getInstance().getService());
         MyOAuthService.getInstance().getService().signRequest(TwatterApp.getAccessToken(), request);
         final Response response = request.send();
         try {
-            JSONArray jsonArray = new JSONArray(response.getBody());
+            Log.d(TAG, response.getBody().toString());
+            JSONObject jsonObject = new JSONObject(response.getBody());
+            Log.d(TAG, "JSONObject: " + jsonObject.toString());
+            JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("users"));
             return jsonArray;
         } catch (JSONException e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "JSONException: " + e.getMessage());
         }
         return null;
     }

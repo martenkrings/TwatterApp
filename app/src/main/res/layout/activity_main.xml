@@ -20,7 +20,16 @@
                 android:id="@+id/lv_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/et_searchbar"></ListView>
+                android:layout_below="@+id/et_searchbar"
+                android:layout_above="@+id/b_tweet_post_button"
+                ></ListView>
+
+            <Button
+                android:id="@+id/b_tweet_post_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="Tweet posten"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

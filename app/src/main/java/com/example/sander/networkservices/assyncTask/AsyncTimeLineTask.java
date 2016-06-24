@@ -5,6 +5,10 @@ import android.util.Log;
 
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
+import com.example.sander.networkservices.MyOAuthService;
+import com.github.scribejava.core.model.OAuthRequest;
+import com.github.scribejava.core.model.Response;
+import com.github.scribejava.core.model.Verb;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -27,34 +31,28 @@ public class AsyncTimeLineTask extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        HttpURLConnection conn = null;
-        try{
-            URL url = new URL("https://api.twitter.com/1.1/statuses/home_timeline.json");
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
 
-            //set headers
-            conn.addRequestProperty("Authorization", "AccessToken " + TwatterApp.getInstance().getAccessToken());
+        final OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.twitter.com/1.1/statuses/home_timeline.json", MyOAuthService.getInstance().getService());
+        MyOAuthService.getInstance().getService().signRequest(TwatterApp.getAccessToken(), request);
+        final Response response = request.send();
 
-            if (conn.getResponseCode() == 200){
-                InputStream is = conn.getInputStream();
-                String results = IOUtils.toString(is);
-                JSONArray jsonArray = new JSONArray(results);
-                ArrayList<Tweet> tweetsFound = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++){
+        Log.d(TAG, "response code: " + response.getMessage());
+        if (response.isSuccessful()) {
+            JSONArray jsonArray = null;
+            ArrayList<Tweet> tweetsFound = new ArrayList<>();
+            //pars te result
+            try {
+                jsonArray = new JSONArray(response.getBody());
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     tweetsFound.add(new Tweet(jsonObject));
                 }
+                //save the result
+                Log.d(TAG, "we saved the timeline");
                 TwatterApp.getInstance().setUserTimeLine(tweetsFound);
+            } catch (JSONException e) {
+                Log.d(TAG, "JSONException: " + e.getMessage());
             }
-        } catch (MalformedURLException e) {
-            Log.d(TAG, "MalformedUrlException: " + e.getMessage());
-        } catch (ProtocolException e) {
-            Log.d(TAG, "ProtocolException: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d(TAG, "IOException: " + e.getMessage());
-        } catch (JSONException e) {
-            Log.d(TAG, "JSONException: " + e.getMessage());
         }
         return null;
     }

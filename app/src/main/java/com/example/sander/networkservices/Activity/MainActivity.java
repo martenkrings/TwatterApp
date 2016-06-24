@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.assyncTask.AsyncGetProfileInfoTask;
 import com.example.sander.networkservices.assyncTask.AsyncTimeLineTask;
 import com.example.sander.networkservices.assyncTask.MyAsyncBearerTask;
 import com.example.sander.networkservices.R;
@@ -29,6 +31,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -36,17 +41,18 @@ public class MainActivity extends AppCompatActivity {
     private ImageView logoutX;
     private ImageView userIcon;
     private ImageView searchIcon;
-    private ImageView tweetIcon;
     private ListView tweetList;
     private ListAdapter adapter;
     private String token;
     private String secret;
+    private Button tweetPostButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set our custom toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,7 +83,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //koppelen views
         tweetList = (ListView) findViewById(R.id.lv_listview);
+        tweetPostButton = (Button) findViewById(R.id.b_tweet_post_button);
+
+        //if the tweet post  button is pressed go to the tweet activity
+        tweetPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TweetActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //get a bearer token
         MyAsyncBearerTask x = new MyAsyncBearerTask();
@@ -91,13 +108,38 @@ public class MainActivity extends AppCompatActivity {
         secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
         Log.d(TAG, "token: " + token);
         Log.d(TAG, "secret: " + secret);
+        OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
+        TwatterApp.setAccesToken(accessToken);
         if (token.equals("null") || secret.equals("null")){
             Log.d(TAG, "ik ga nu de acces token op halen");
             Intent intent = new Intent(this, AuthorizationActivity.class);
             startActivity(intent);
         } else {
             Log.d(TAG, "we hebben al een acces token");
-            loadActivity();
+            //get the users timeline
+            AsyncTimeLineTask asyncTimeLineTask = new AsyncTimeLineTask();
+            asyncTimeLineTask.execute();
+
+            //wait for the asyncTimeLineTask
+            try {
+                asyncTimeLineTask.get(10000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                Log.d(TAG, "InterruptedException: " + e.getMessage());
+            } catch (ExecutionException e) {
+                Log.d(TAG, "ExecutionException: " + e.getMessage());
+            } catch (TimeoutException e) {
+                Log.d(TAG, "TimeoutException: " + e.getMessage());
+            }
+
+            //get the users data
+            AsyncGetProfileInfoTask asyncGetProfileInfoTask = new AsyncGetProfileInfoTask();
+            asyncGetProfileInfoTask.execute();
+
+            if (TwatterApp.getInstance().getUserTimeLine() != null) {
+                adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
+                tweetList.setAdapter(adapter);
+                Log.d(TAG, "test");
+            }
         }
     }
 
@@ -145,23 +187,5 @@ public class MainActivity extends AppCompatActivity {
             Tweet tweetAdded = new Tweet(JSON_Objects.getJSONObject(i));
             Tweet_Model.getInstance().addTweet(tweetAdded);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "ik ga nu verder met de mainactivity");
-        loadActivity();
-    }
-
-    public void loadActivity(){
-        OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
-        TwatterApp.setAccesToken(accessToken);
-
-        //get the users timeline
-        AsyncTimeLineTask asyncTimeLineTask = new AsyncTimeLineTask();
-        asyncTimeLineTask.execute();
-
-        adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
     }
 }

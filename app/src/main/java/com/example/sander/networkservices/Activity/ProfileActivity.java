@@ -14,6 +14,7 @@ import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AsyncChangeNameTask;
 import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
+import com.example.sander.networkservices.assyncTask.AsyncGetProfileInfoTask;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -44,11 +45,12 @@ public class ProfileActivity extends AppCompatActivity {
         profileScreenName = (TextView) findViewById(R.id.tv_profile_screenName);
         volgers = (TextView) findViewById(R.id.tv_proflile_volgers);
         naamButton = (Button) findViewById(R.id.b_profile_naam_bewerken);
-        vriendenButton = (Button) findViewById(R.id.b_search_button);
+        vriendenButton = (Button) findViewById(R.id.b_profile_friends);
         changeName = (EditText) findViewById(R.id.et_profiel_naam);
 
 
         //fill views
+        Log.d(TAG, TwatterApp.getInstance().getIngelogteUser().toString());
         Picasso.with(this).load(TwatterApp.getInstance().getIngelogteUser().getImageUrl()).into(profilePicture);
         profileName.setText(TwatterApp.getInstance().getIngelogteUser().getName());
         profileScreenName.setText(TwatterApp.getInstance().getIngelogteUser().getScreen_name());
@@ -76,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         tweetIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, TweetActivity.class);
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,14 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
         vriendenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncGetFriendListTask assyncGetFriendListTask = new AsyncGetFriendListTask();
-                try {
-                    JSONArray jsonArray = assyncGetFriendListTask.execute().get();
-                } catch (InterruptedException e) {
-                    Log.d(TAG, "InterruptedException: " + e.getMessage());
-                } catch (ExecutionException e) {
-                    Log.d(TAG, "ExecutionException: " + e.getMessage());
-                }
+                Intent intent = new Intent(ProfileActivity.this, FriendListActivity.class);
+                startActivity(intent);
             }
         });
 
