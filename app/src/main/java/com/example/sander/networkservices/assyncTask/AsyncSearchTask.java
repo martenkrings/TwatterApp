@@ -21,11 +21,11 @@ import java.net.URL;
 /**
  * Created by Sander on 3-6-2016.
  */
-public class AssyncSearchTask extends AsyncTask {
-    private static final String TAG = "AssyncSearchTask";
+public class AsyncSearchTask extends AsyncTask {
+    private static final String TAG = "AsyncSearchTask";
     private String searchParameters;
 
-    public AssyncSearchTask(String searchParameters) {
+    public AsyncSearchTask(String searchParameters) {
         this.searchParameters = searchParameters;
     }
 

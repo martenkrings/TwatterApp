@@ -13,7 +13,7 @@ import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.User;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.UserAdapter;
-import com.example.sander.networkservices.assyncTask.AssyncGetFriendListTask;
+import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,7 +79,7 @@ public class FollowersListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv_followers_list);
         ArrayList<User> arrayList = new ArrayList<>();
         try {
-            JSONArray jsonArray = new AssyncGetFriendListTask().execute().get();
+            JSONArray jsonArray = new AsyncGetFriendListTask().execute().get();
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 User user = new User(jsonObject);

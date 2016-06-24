@@ -21,8 +21,8 @@ import java.net.URLEncoder;
 /**
  * Created by Sander on 27-5-2016.
  */
-public class MyAssyncBearerTask extends AsyncTask {
-    private static final String TAG = "MyAssyncBearerTask";
+public class MyAsyncBearerTask extends AsyncTask {
+    private static final String TAG = "MyAsyncBearerTask";
     private static final String CHARSET_UTF_8 = "UTF-8";
 
     @Override

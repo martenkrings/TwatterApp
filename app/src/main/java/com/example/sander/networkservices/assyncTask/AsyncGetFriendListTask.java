@@ -15,7 +15,7 @@ import org.json.JSONException;
 /**
  * Created by Sander on 22-6-2016.
  */
-public class AssyncGetFriendListTask extends AsyncTask<Void, Void, JSONArray> {
+public class AsyncGetFriendListTask extends AsyncTask<Void, Void, JSONArray> {
     private static final String TAG = "AssyncgetFriendlistTask";
 
     @Override
