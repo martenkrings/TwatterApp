@@ -16,9 +16,11 @@ import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.assyncTask.AssyncTimeLineTask;
+import com.example.sander.networkservices.assyncTask.AsyncRetweetTask;
 import com.example.sander.networkservices.assyncTask.MyAssyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
+import com.example.sander.networkservices.controller.RetweetCallbacks;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 
 import org.json.JSONArray;
@@ -30,7 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RetweetCallbacks {
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
     private ImageView logoutX;
@@ -150,5 +152,11 @@ public class MainActivity extends AppCompatActivity {
             Tweet tweetAdded = new Tweet(JSON_Objects.getJSONObject(i));
             Tweet_Model.getInstance().addTweet(tweetAdded);
         }
+    }
+
+    @Override
+    public void retweet(int id) {
+        AsyncRetweetTask retweetTask = new AsyncRetweetTask();
+        retweetTask.execute(Integer.toString(id));
     }
 }

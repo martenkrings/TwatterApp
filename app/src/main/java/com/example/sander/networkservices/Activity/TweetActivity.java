@@ -73,8 +73,8 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!status.getText().equals("")){
-                    AsyncTweetTask assyncChangeNameTask = new AsyncTweetTask();
-                    assyncChangeNameTask.execute(status.getText().toString());
+                    AsyncTweetTask asyncTweetTask = new AsyncTweetTask();
+                    asyncTweetTask.execute(status.getText().toString());
                     finish();
                     startActivity(getIntent());
                 }

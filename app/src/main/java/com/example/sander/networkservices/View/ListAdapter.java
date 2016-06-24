@@ -21,6 +21,7 @@ import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.Model.Url;
 import com.example.sander.networkservices.Model.UserMention;
 import com.example.sander.networkservices.R;
+import com.example.sander.networkservices.controller.RetweetCallbacks;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class ListAdapter extends ArrayAdapter {
     public ListAdapter(Context context, ArrayList<Tweet> tweets) {
         super(context, 0, tweets);
     }
+
+    private RetweetCallbacks retweetCallbacks;
+
+
 
     //TODO change layout of entities(spanableString)
     @Override

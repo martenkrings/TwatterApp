@@ -14,11 +14,13 @@ import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
 import com.example.sander.networkservices.assyncTask.AssyncSearchTask;
+import com.example.sander.networkservices.assyncTask.AsyncRetweetTask;
+import com.example.sander.networkservices.controller.RetweetCallbacks;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements RetweetCallbacks {
     private static final String TAG = "SearchActivity";
     private ImageView profileIcon;
     private ImageView tweetIcon;
@@ -71,5 +73,11 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
+    }
+
+    @Override
+    public void retweet(int id) {
+        AsyncRetweetTask retweetTask = new AsyncRetweetTask();
+        retweetTask.execute(Integer.toString(id));
     }
 }
