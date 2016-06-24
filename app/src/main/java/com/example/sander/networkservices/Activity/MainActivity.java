@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AuthorizationActivity.class);
             startActivity(intent);
         } else {
-            loadActivity();
+            //loadActivity();
         }
     }
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadActivity();
+        //loadActivity();
     }
 
     public void loadActivity(){
