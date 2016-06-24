@@ -22,6 +22,7 @@ public class AuthorizationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
 
+
         WebView wv = (WebView) findViewById(R.id.wvAuthentication);
         AsyncRequestTokenTask task = new AsyncRequestTokenTask();
         task.execute();

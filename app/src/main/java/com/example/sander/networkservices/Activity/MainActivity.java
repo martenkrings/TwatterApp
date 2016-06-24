@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView tweetIcon;
     private ListView tweetList;
     private ListAdapter adapter;
+    private String token;
+    private String secret;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,70 +46,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("ACCESSTOKEN_TOKEN", "null");
-        String secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
+        token = sharedPreferences.getString("ACCESSTOKEN_TOKEN", "null");
+        secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
         if (token.equals("null") || secret.equals("null")){
             Intent intent = new Intent(this, AuthorizationActivity.class);
             startActivity(intent);
+        } else {
+            loadActivity();
         }
-        OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
-        TwatterApp.setAccesToken(accessToken);
-
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // all the buttons
-        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
-        logoutX.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TwatterApp.getInstance().setIngelogteUser(null);
-                //GO TO LOGIN
-            }
-        });
-        userIcon = (ImageView) findViewById(R.id.iv_user_icon);
-        userIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-        searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-        tweetIcon = (ImageView) findViewById(R.id.iv_tweet_icon);
-        tweetIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TweetActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        tweetList = (ListView) findViewById(R.id.lv_listview);
-        adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
-
-        //Try to progress the info of the JSON file
-        try {
-            progressString(readAssetIntoString("JSON_example.json"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        tweetList.setAdapter(adapter);
-
-        MyAssyncBearerTask x = new MyAssyncBearerTask();
-        x.execute();
     }
 
     /**
@@ -157,4 +103,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadActivity();
+    }
+
+    public void loadActivity(){
+        OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
+        TwatterApp.setAccesToken(accessToken);
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // all the buttons
+        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
+        logoutX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwatterApp.getInstance().setIngelogteUser(null);
+                //GO TO LOGIN
+            }
+        });
+        userIcon = (ImageView) findViewById(R.id.iv_user_icon);
+        userIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        tweetList = (ListView) findViewById(R.id.lv_listview);
+        adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
+
+        //Try to progress the info of the JSON file
+        try {
+            progressString(readAssetIntoString("JSON_example.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        tweetList.setAdapter(adapter);
+
+        MyAssyncBearerTask x = new MyAssyncBearerTask();
+        x.execute();
+    }
 }
