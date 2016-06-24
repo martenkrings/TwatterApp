@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NetworkServices</string>
+    <string name="sharedpref">NETWORKSERVICES_SHAREDPREFRENCES</string>
 </resources>

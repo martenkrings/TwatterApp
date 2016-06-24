@@ -19,6 +19,7 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
 
 public class AuthorizationActivity extends AppCompatActivity {
     private static final String TAG = "AuthorizationActivity";
+    public static final int sharedPreferenceName = R.string.sharedpref;
     private String url;
     private WebView wv;
     private OAuth1RequestToken requestToken;
@@ -65,11 +66,14 @@ public class AuthorizationActivity extends AppCompatActivity {
         String token = accessToken.getToken();
         String secret = accessToken.getTokenSecret();
 
-        SharedPreferences preferences = this.getPreferences(Context.MODE_PRIVATE);
+        Log.d(TAG, "token: " + token);
+        Log.d(TAG, "secret: " + secret);
+
+        SharedPreferences preferences = this.getSharedPreferences(getString(sharedPreferenceName), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("ACCESSTOKEN_TOKEN", token);
         editor.putString("ACCESSTOKEN_SECRET", secret);
-        editor.apply();
+        editor.commit();
     }
 
     private class AsyncAccessTask extends AsyncTask<String, Void, OAuth1AccessToken> {

@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "ik kom voor de if");
 
         //if we dont already have an acces token get one!
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(AuthorizationActivity.sharedPreferenceName), Context.MODE_PRIVATE);
         token = sharedPreferences.getString("ACCESSTOKEN_TOKEN", "null");
         secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
         Log.d(TAG, "token: " + token);
