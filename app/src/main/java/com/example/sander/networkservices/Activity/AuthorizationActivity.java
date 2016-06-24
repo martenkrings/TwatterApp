@@ -1,6 +1,7 @@
 package com.example.sander.networkservices.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,7 +18,7 @@ import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 
 public class AuthorizationActivity extends AppCompatActivity {
-
+    private static final String TAG = "AuthorizationActivity";
     private String url;
     private WebView wv;
     private OAuth1RequestToken requestToken;
@@ -39,9 +40,8 @@ public class AuthorizationActivity extends AppCompatActivity {
                     Log.d("url:", url);
                     String token = uri.getQueryParameter("oauth_token");
                     String verifier = uri.getQueryParameter("oauth_verifier");
-
-                    Log.d("verifier:", verifier);
-                    Log.d("token:", token);
+                    Log.d(TAG, "verifier: " + verifier);
+                    Log.d(TAG, "token: " + token);
 
                     AsyncAccessTask accessTask = new AsyncAccessTask();
                     accessTask.execute(verifier);
@@ -70,7 +70,6 @@ public class AuthorizationActivity extends AppCompatActivity {
         editor.putString("ACCESSTOKEN_TOKEN", token);
         editor.putString("ACCESSTOKEN_SECRET", secret);
         editor.apply();
-        finish();
     }
 
     private class AsyncAccessTask extends AsyncTask<String, Void, OAuth1AccessToken> {
@@ -88,7 +87,12 @@ public class AuthorizationActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(OAuth1AccessToken oAuth1AccessToken) {
+            Log.d(TAG, "Ik zit nu in de postExcute");
             AuthorizationActivity.this.saveAccessToken(oAuth1AccessToken);
+            Log.d(TAG, "Ik ga nu terug naar de mainActivity");
+            Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
+            finish();
+            startActivity(intent);
         }
     }
 

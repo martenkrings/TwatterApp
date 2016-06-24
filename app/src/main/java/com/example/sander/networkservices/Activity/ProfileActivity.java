@@ -14,7 +14,6 @@ import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AsyncChangeNameTask;
 import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
-import com.example.sander.networkservices.assyncTask.AsyncTimeLineTask;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -38,9 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        AsyncTimeLineTask assyncTimeLineTask = new AsyncTimeLineTask();
-        assyncTimeLineTask.execute();
 
         //connect with views
         profilePicture = (ImageView) findViewById(R.id.iv_profile_picture);

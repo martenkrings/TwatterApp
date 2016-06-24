@@ -44,16 +44,12 @@ public class AsyncSearchTask extends AsyncTask {
             //set headers
             conn.addRequestProperty("Authorization", "Bearer " + TwatterApp.getInstance().getBearerToken());
 
-            Log.d(TAG, "" + conn.getResponseCode());
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()){
                 InputStream is = conn.getInputStream();
                 String results = IOUtils.toString(is);
-                Log.d(TAG, results);
                 JSONObject jsonObject = new JSONObject(results);
-                Log.d(TAG, jsonObject.toString());
                 JSONArray jsonObjects = jsonObject.getJSONArray("statuses");
                 TwatterApp.getInstance().addSearchResults(jsonObjects);
-                Log.d(TAG, "String of JSON array: " + jsonObjects.toString());
             }
         } catch (MalformedURLException e) {
             Log.d(TAG, "MalfromedURLException: " + e.getMessage());

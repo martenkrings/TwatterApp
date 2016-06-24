@@ -11,17 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
-
-        </activity>
-        <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".Activity.SearchActivity" />
-        <activity android:name=".Activity.AuthorizationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.AuthorizationActivity" />
         <activity android:name=".Activity.FriendListActivity" />
         <activity android:name=".Activity.FollowersListActivity" />
         <activity android:name=".Activity.TweetActivity"></activity>

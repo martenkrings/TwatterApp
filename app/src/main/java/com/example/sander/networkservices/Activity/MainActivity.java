@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.Tweet;
 import com.example.sander.networkservices.Model.Tweet_Model;
+import com.example.sander.networkservices.assyncTask.AsyncTimeLineTask;
 import com.example.sander.networkservices.assyncTask.MyAsyncBearerTask;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
@@ -45,14 +47,57 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // all the buttons
+        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
+        logoutX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwatterApp.getInstance().setIngelogteUser(null);
+                //GO TO LOGIN
+            }
+        });
+        userIcon = (ImageView) findViewById(R.id.iv_user_icon);
+        userIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        tweetList = (ListView) findViewById(R.id.lv_listview);
+
+        //get a bearer token
+        MyAsyncBearerTask x = new MyAsyncBearerTask();
+        x.execute();
+
+        Log.d(TAG, "ik kom voor de if");
+
+        //if we dont already have an acces token get one!
         SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
         token = sharedPreferences.getString("ACCESSTOKEN_TOKEN", "null");
         secret = sharedPreferences.getString("ACCESSTOKEN_SECRET", "null");
+        Log.d(TAG, "token: " + token);
+        Log.d(TAG, "secret: " + secret);
         if (token.equals("null") || secret.equals("null")){
+            Log.d(TAG, "ik ga nu de acces token op halen");
             Intent intent = new Intent(this, AuthorizationActivity.class);
             startActivity(intent);
         } else {
-            //loadActivity();
+            Log.d(TAG, "we hebben al een acces token");
+            loadActivity();
         }
     }
 
@@ -66,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     private String readAssetIntoString(String filename) throws IOException {
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();
-
         String line;
         try {
             InputStream is = getAssets().open(filename, AssetManager.ACCESS_BUFFER);
@@ -106,59 +150,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //loadActivity();
+        Log.d(TAG, "ik ga nu verder met de mainactivity");
+        loadActivity();
     }
 
     public void loadActivity(){
         OAuth1AccessToken accessToken = new OAuth1AccessToken(token, secret);
         TwatterApp.setAccesToken(accessToken);
 
+        //get the users timeline
+        AsyncTimeLineTask asyncTimeLineTask = new AsyncTimeLineTask();
+        asyncTimeLineTask.execute();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // all the buttons
-        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
-        logoutX.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TwatterApp.getInstance().setIngelogteUser(null);
-                //GO TO LOGIN
-            }
-        });
-        userIcon = (ImageView) findViewById(R.id.iv_user_icon);
-        userIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-        searchIcon = (ImageView) findViewById(R.id.iv_search_icon);
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        tweetList = (ListView) findViewById(R.id.lv_listview);
         adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
-
-        //Try to progress the info of the JSON file
-        try {
-            progressString(readAssetIntoString("JSON_example.json"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        tweetList.setAdapter(adapter);
-
-        MyAsyncBearerTask x = new MyAsyncBearerTask();
-        x.execute();
     }
 }

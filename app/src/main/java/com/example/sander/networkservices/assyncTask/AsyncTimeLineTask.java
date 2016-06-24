@@ -36,18 +36,16 @@ public class AsyncTimeLineTask extends AsyncTask {
             //set headers
             conn.addRequestProperty("Authorization", "AccessToken " + TwatterApp.getInstance().getAccessToken());
 
-            Log.d(TAG, conn.getResponseCode() + "");
             if (conn.getResponseCode() == 200){
                 InputStream is = conn.getInputStream();
                 String results = IOUtils.toString(is);
-                Log.d(TAG, results);
                 JSONArray jsonArray = new JSONArray(results);
-                Log.d(TAG, jsonArray.toString());
                 ArrayList<Tweet> tweetsFound = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     tweetsFound.add(new Tweet(jsonObject));
                 }
+                TwatterApp.getInstance().setUserTimeLine(tweetsFound);
             }
         } catch (MalformedURLException e) {
             Log.d(TAG, "MalformedUrlException: " + e.getMessage());
