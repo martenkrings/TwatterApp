@@ -3,6 +3,7 @@ package com.example.sander.networkservices.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,12 @@ import android.widget.TextView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AsyncChangeNameTask;
+import com.example.sander.networkservices.assyncTask.AsyncGetProfileInfoTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Deze activiteit laat je profiel zien.
@@ -58,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
+                finish();
                 startActivity(intent);
             }
         });
@@ -67,6 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -75,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -85,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, FriendListActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -96,6 +107,22 @@ public class ProfileActivity extends AppCompatActivity {
                 if (!changeName.getText().equals("")){
                     AsyncChangeNameTask assyncChangeNameTask = new AsyncChangeNameTask();
                     assyncChangeNameTask.execute(changeName.getText().toString());
+
+                    //get the new user data
+                    AsyncGetProfileInfoTask asyncGetProfileInfoTask = new AsyncGetProfileInfoTask();
+                    asyncGetProfileInfoTask.execute();
+
+                    //wait a while for the AsyncChangeNameTask to finish
+                    try {
+                        assyncChangeNameTask.get(10000, TimeUnit.MILLISECONDS);
+                        asyncGetProfileInfoTask.get(10000, TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG, "InterruptedException: " + e.getMessage());
+                    } catch (ExecutionException e) {
+                        Log.d(TAG, "ExecutionException: " + e.getMessage());
+                    } catch (TimeoutException e) {
+                        Log.d(TAG, "TimeoutException: " + e.getMessage());
+                    }
                     finish();
                     startActivity(getIntent());
                 }

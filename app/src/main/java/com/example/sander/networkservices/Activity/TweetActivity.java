@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,10 @@ import android.widget.ImageView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AsyncTweetTask;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class TweetActivity extends AppCompatActivity {
     private static final String TAG = "TweetActivity";
@@ -38,6 +43,7 @@ public class TweetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
+                finish();
                 startActivity(intent);
             }
         });
@@ -46,6 +52,7 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, ProfileActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -55,6 +62,8 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, SearchActivity.class);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -63,6 +72,7 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, TweetActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -76,6 +86,17 @@ public class TweetActivity extends AppCompatActivity {
                 if (!status.getText().equals("")){
                     AsyncTweetTask asyncTweetTask = new AsyncTweetTask();
                     asyncTweetTask.execute(status.getText().toString());
+
+                    //wait on the tweettask so we wont run out of memory
+                    try {
+                        asyncTweetTask.get(10000, TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG, "InterruptedException: " + e.getMessage());
+                    } catch (ExecutionException e) {
+                        Log.d(TAG, "ExecutionException: " + e.getMessage());
+                    } catch (TimeoutException e) {
+                        Log.d(TAG, "TimeoutException: " + e.getMessage());
+                    }
                     finish();
                     startActivity(getIntent());
                 }

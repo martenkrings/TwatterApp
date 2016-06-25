@@ -49,6 +49,7 @@ public class FollowersListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(FollowersListActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
+                finish();
                 startActivity(intent);
             }
         });
@@ -57,6 +58,7 @@ public class FollowersListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FollowersListActivity.this, ProfileActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -66,6 +68,7 @@ public class FollowersListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FollowersListActivity.this, SearchActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -75,6 +78,7 @@ public class FollowersListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FollowersListActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

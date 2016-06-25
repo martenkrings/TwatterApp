@@ -51,6 +51,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
+                finish();
                 startActivity(intent);
             }
         });
@@ -60,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SearchActivity.this, ProfileActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -69,6 +71,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });

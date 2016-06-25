@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
+                finish();
                 startActivity(intent);
             }
         });
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TweetActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         TwatterApp.setAccesToken(accessToken);
         if (token.equals("null") || secret.equals("null")) {
             Intent authorizationIntent = new Intent(this, AuthorizationActivity.class);
+            finish();
             startActivity(authorizationIntent);
         } else {
             //get the users timeline
