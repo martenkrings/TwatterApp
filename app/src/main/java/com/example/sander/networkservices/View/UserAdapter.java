@@ -36,7 +36,7 @@ public class UserAdapter extends ArrayAdapter<User> {
         Picasso.with(getContext()).load(user.getImageUrl()).into(imageView);
         userName.setText(user.getName());
         screenName.setText("@" + user.getScreen_name());
-        followerCount.setText(user.getFollower_count());
+        followerCount.setText(user.getFollower_count() + "");
         return convertView;
     }
 }

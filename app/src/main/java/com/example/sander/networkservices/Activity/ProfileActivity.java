@@ -50,10 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //fill views
-        Log.d(TAG, TwatterApp.getInstance().getIngelogteUser().toString());
         Picasso.with(this).load(TwatterApp.getInstance().getIngelogteUser().getImageUrl()).into(profilePicture);
         profileName.setText(TwatterApp.getInstance().getIngelogteUser().getName());
-        profileScreenName.setText(TwatterApp.getInstance().getIngelogteUser().getScreen_name());
+        profileScreenName.setText("@" + TwatterApp.getInstance().getIngelogteUser().getScreen_name());
         volgers.setText(TwatterApp.getInstance().getIngelogteUser().getFollower_count() + "");
 
         //configure buttons
@@ -61,8 +60,9 @@ public class ProfileActivity extends AppCompatActivity {
         logoutX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwatterApp.getInstance().setIngelogteUser(null);
-                //GO TO LOGIN
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                intent.putExtra("uitloggen", 1);
+                startActivity(intent);
             }
         });
 

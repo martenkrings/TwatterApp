@@ -25,10 +25,8 @@ public class AsyncGetFriendListTask extends AsyncTask<Void, Void, JSONArray> {
         MyOAuthService.getInstance().getService().signRequest(TwatterApp.getAccessToken(), request);
         final Response response = request.send();
         try {
-            Log.d(TAG, response.getBody().toString());
             JSONObject jsonObject = new JSONObject(response.getBody());
-            Log.d(TAG, "JSONObject: " + jsonObject.toString());
-            JSONArray jsonArray = new JSONArray(jsonObject.getJSONArray("users"));
+            JSONArray jsonArray = jsonObject.getJSONArray("users");
             return jsonArray;
         } catch (JSONException e) {
             Log.d(TAG, "JSONException: " + e.getMessage());

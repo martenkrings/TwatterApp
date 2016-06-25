@@ -36,8 +36,9 @@ public class TweetActivity extends AppCompatActivity {
         logoutX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwatterApp.getInstance().setIngelogteUser(null);
-                //GO TO LOGIN
+                Intent intent = new Intent(TweetActivity.this, MainActivity.class);
+                intent.putExtra("uitloggen", 1);
+                startActivity(intent);
             }
         });
         userIcon = (ImageView) findViewById(R.id.iv_user_icon);

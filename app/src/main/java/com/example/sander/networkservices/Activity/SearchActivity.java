@@ -17,11 +17,15 @@ import com.example.sander.networkservices.assyncTask.AsyncSearchTask;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
     private ImageView profileIcon;
     private ImageView tweetIcon;
+    private ImageView logoutX;
     private Button searchButton;
     private EditText searchBar;
     private ListView searchList;
@@ -36,6 +40,17 @@ public class SearchActivity extends AppCompatActivity {
         searchList = (ListView) findViewById(R.id.lv_search_listview);
         adapter = new ListAdapter(SearchActivity.this, TwatterApp.getInstance().getSearchResults());
         searchList.setAdapter(adapter);
+
+        //toolbar buttons
+        logoutX = (ImageView) findViewById(R.id.iv_logout_x);
+        logoutX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                intent.putExtra("uitloggen", 1);
+                startActivity(intent);
+            }
+        });
 
         profileIcon = (ImageView) findViewById(R.id.iv_user_icon);
         profileIcon.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +82,20 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 AsyncSearchTask searchTask = new AsyncSearchTask(search);
                 searchTask.execute();
-                finish();
-                startActivity(getIntent());
+
+                //wait for the searchTask
+                try {
+                    searchTask.get(10000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException e) {
+                    Log.d(TAG, "InterruptedException: " + e.getMessage());
+                } catch (ExecutionException e) {
+                    Log.d(TAG, "ExecutionException: " + e.getMessage());
+                } catch (TimeoutException e) {
+                    Log.d(TAG, "TimeoutException: " + e.getMessage());
+                }
+
+                //notify the adapter
+                adapter.notifyDataSetChanged();
             }
         });
     }

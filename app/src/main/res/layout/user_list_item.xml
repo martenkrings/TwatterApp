@@ -26,11 +26,19 @@
         android:textSize="20sp"/>
 
     <TextView
+        android:id="@+id/tv_folowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_porfile_name_friend_list"
+        android:layout_toEndOf="@+id/iv_profile_picture_friend_list"
+        android:text="followers: "/>
+
+    <TextView
         android:id="@+id/tv_proflile_volgers_friend_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_porfile_name_friend_list"
-        android:layout_toEndOf="@+id/iv_profile_picture_friend_list"
+        android:layout_toEndOf="@+id/tv_folowers"
         android:text="50"
         android:textSize="20sp"/>
 

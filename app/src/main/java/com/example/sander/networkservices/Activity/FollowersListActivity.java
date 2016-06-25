@@ -45,8 +45,9 @@ public class FollowersListActivity extends AppCompatActivity {
         logoutX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwatterApp.getInstance().setIngelogteUser(null);
-                //GO TO LOGIN
+                Intent intent = new Intent(FollowersListActivity.this, MainActivity.class);
+                intent.putExtra("uitloggen", 1);
+                startActivity(intent);
             }
         });
         userIcon = (ImageView) findViewById(R.id.iv_user_icon);
@@ -63,6 +64,7 @@ public class FollowersListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FollowersListActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 

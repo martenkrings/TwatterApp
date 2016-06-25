@@ -34,6 +34,8 @@ public class AsyncChangeNameTask extends AsyncTask<String, Void, Boolean> {
         request.addParameter("name", params[0]);
         MyOAuthService.getInstance().getService().signRequest(TwatterApp.getAccessToken(), request);
         final Response response = request.send();
+        Log.d(TAG, "was response succesfull: " + response.isSuccessful());
+        Log.d(TAG, "respnse message: " + response.getMessage());
         if (response.isSuccessful()){
             return true;
         }
