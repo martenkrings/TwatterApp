@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Sander on 25-6-2016.
+ * Deze Task vraagt je profiel info op.
  */
 public class AsyncGetProfileInfoTask extends AsyncTask {
     private static final String TAG = "AsyncGetProfileInfoTask";

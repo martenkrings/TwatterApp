@@ -3,7 +3,7 @@ package com.example.sander.networkservices.Model;
 import java.net.URL;
 
 /**
- * Created by Sander on 13-5-2016.
+ * Model klasse voor een url
  */
 public class Url extends Entitie{
     private String url;

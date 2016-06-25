@@ -11,7 +11,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 /**
- * Created by Sander on 7-6-2016.
+ * Klasse voor verschillende belangrijke variabelen.
  */
 public class TwatterApp {
     private static final String TAG = "TwatterApp";

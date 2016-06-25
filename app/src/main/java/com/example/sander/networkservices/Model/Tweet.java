@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Sander on 13-5-2016.
+ * Model klasse voor een tweet.
  */
 public class Tweet {
     private static final String TAG = "Tweet";

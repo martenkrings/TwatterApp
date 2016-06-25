@@ -19,7 +19,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Created by Sander on 27-5-2016.
+ * Deze Task is voor het opvragen van een bearer token.
  */
 public class MyAsyncBearerTask extends AsyncTask {
     private static final String TAG = "MyAsyncBearerTask";

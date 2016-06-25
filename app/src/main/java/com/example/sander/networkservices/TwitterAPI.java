@@ -4,7 +4,7 @@ import com.github.scribejava.core.builder.api.DefaultApi10a;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 
 /**
- * Created by Gebruiker on 6/16/2016.
+ * Api klasse voor de oauth authenticatie.
  */
 public class TwitterAPI extends DefaultApi10a {
 

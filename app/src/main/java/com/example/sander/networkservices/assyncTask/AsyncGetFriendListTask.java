@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Sander on 22-6-2016.
+ * Deze Task vraagt je vrienden op.
  */
 public class AsyncGetFriendListTask extends AsyncTask<Void, Void, JSONArray> {
     private static final String TAG = "AssyncgetFriendlistTask";

@@ -21,6 +21,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * Deze activiteit kan zoek opdrachten uitvoeren.
+ */
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
     private ImageView profileIcon;

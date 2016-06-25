@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by Sander on 13-5-2016.
+ * Adapter voor een lijst tweets.
  */
 public class ListAdapter extends ArrayAdapter {
 

@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Created by Gebruiker on 6/23/2016.
+ * Deze Task vraagt je volgers op.
  */
 public class AsyncFollowersTask extends AsyncTask<Void, Void, JSONArray> {
     private static final String TAG = "AsyncFollowersTask";

@@ -10,21 +10,14 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by Sander on 9-6-2016.
+ * Deze Task vraagt je timeline op.
  */
 public class AsyncTimeLineTask extends AsyncTask {
     private static final String TAG = "AsyncTimeLineTask";

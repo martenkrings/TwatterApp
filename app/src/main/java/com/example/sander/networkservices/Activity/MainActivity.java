@@ -3,7 +3,6 @@ package com.example.sander.networkservices.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.sander.networkservices.Model.TwatterApp;
-import com.example.sander.networkservices.Model.Tweet;
-import com.example.sander.networkservices.Model.Tweet_Model;
 import com.example.sander.networkservices.assyncTask.AsyncGetProfileInfoTask;
 import com.example.sander.networkservices.assyncTask.AsyncTimeLineTask;
 import com.example.sander.networkservices.assyncTask.MyAsyncBearerTask;
@@ -23,14 +20,6 @@ import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.ListAdapter;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;

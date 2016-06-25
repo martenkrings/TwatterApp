@@ -3,7 +3,6 @@ package com.example.sander.networkservices.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,14 +12,11 @@ import android.widget.TextView;
 import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.assyncTask.AsyncChangeNameTask;
-import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
-import com.example.sander.networkservices.assyncTask.AsyncGetProfileInfoTask;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-
-import java.util.concurrent.ExecutionException;
-
+/**
+ * Deze activiteit laat je profiel zien.
+ */
 public class ProfileActivity extends AppCompatActivity {
     private ImageView tweetIcon;
     private ImageView searchIcon;

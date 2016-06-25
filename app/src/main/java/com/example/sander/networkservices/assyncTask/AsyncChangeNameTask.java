@@ -1,7 +1,6 @@
 package com.example.sander.networkservices.assyncTask;
 
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import com.example.sander.networkservices.Model.TwatterApp;
@@ -10,20 +9,8 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
-import org.apache.commons.io.IOUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
 /**
- * Created by Sander on 21-6-2016.
+ * Deze Task verandert je profiel naam.
  */
 public class AsyncChangeNameTask extends AsyncTask<String, Void, Boolean> {
     private static final String TAG = "AsyncChangeNameTask";

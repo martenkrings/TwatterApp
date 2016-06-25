@@ -9,7 +9,7 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 
 /**
- * Created by Gebruiker on 6/23/2016.
+ * Deze Task retweet een status.
  */
 public class AsyncRetweetTask extends AsyncTask<String, Void, Boolean> {
     private static final String TAG = "AsyncRetweetTask";

@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -19,7 +18,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by Sander on 3-6-2016.
+ * Deze Task is voor het uitvoern van een zoekopdracht.
  */
 public class AsyncSearchTask extends AsyncTask {
     private static final String TAG = "AsyncSearchTask";

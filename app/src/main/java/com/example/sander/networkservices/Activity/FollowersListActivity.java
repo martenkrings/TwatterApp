@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.User;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.UserAdapter;
-import com.example.sander.networkservices.assyncTask.AsyncGetFriendListTask;
+import com.example.sander.networkservices.assyncTask.AsyncFollowersTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +21,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Deze activiteit laat je volgers zien.
+ */
 public class FollowersListActivity extends AppCompatActivity {
     private static final String TAG = "FollowersListActivity";
     private Toolbar toolbar;
@@ -81,7 +83,7 @@ public class FollowersListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv_followers_list);
         ArrayList<User> arrayList = new ArrayList<>();
         try {
-            JSONArray jsonArray = new AsyncGetFriendListTask().execute().get();
+            JSONArray jsonArray = new AsyncFollowersTask().execute().get();
             for (int i = 0; i < jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 User user = new User(jsonObject);

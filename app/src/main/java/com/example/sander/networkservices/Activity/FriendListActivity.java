@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.example.sander.networkservices.Model.TwatterApp;
 import com.example.sander.networkservices.Model.User;
 import com.example.sander.networkservices.R;
 import com.example.sander.networkservices.View.UserAdapter;
@@ -22,6 +21,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Deze activiteit laat je vrienden zien.
+ */
 public class FriendListActivity extends AppCompatActivity {
     private static final String TAG = "FriendListActivity";
     private Toolbar toolbar;

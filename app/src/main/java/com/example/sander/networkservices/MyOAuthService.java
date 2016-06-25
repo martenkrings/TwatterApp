@@ -4,7 +4,7 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.oauth.OAuth10aService;
 
 /**
- * Created by Gebruiker on 6/17/2016.
+ * Singleton klasse voor het bouwen en het ophalen van de oauth service.
  */
 public class MyOAuthService {
 

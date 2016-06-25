@@ -1,11 +1,7 @@
 package com.example.sander.networkservices.Model;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
- * Created by Sander on 13-5-2016.
+ * Model klasse voor een hashtag.
  */
 public class Hasthag extends Entitie{
     private String text;

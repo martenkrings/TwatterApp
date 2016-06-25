@@ -1,7 +1,7 @@
 package com.example.sander.networkservices.Model;
 
 /**
- * Created by Sander on 13-5-2016.
+ * Model klasse voor een entity.
  */
 public class Entitie {
     private int[] indeces;

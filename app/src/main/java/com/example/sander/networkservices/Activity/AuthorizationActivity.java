@@ -7,16 +7,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.sander.networkservices.MyOAuthService;
 import com.example.sander.networkservices.R;
-import com.example.sander.networkservices.TwitterAPI;
 import com.github.scribejava.core.model.OAuth1AccessToken;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 
+/**
+ * Deze activiteit verbind met de twitter api om een accesstoken op te vragen.
+ * Dit token wordt gebruikt om andere request uit te kunnen voeren.
+ */
 public class AuthorizationActivity extends AppCompatActivity {
     private static final String TAG = "AuthorizationActivity";
     public static final int sharedPreferenceName = R.string.sharedpref;
@@ -33,12 +35,15 @@ public class AuthorizationActivity extends AppCompatActivity {
         AsyncRequestTokenTask task = new AsyncRequestTokenTask();
         task.execute();
 
+        /**
+         * Wanneer de callback url wordt geladen wordt de url opgevangen en wordt de oauth verifier
+         * uit de url gehaald om de accesstoken op te vragen.
+         */
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("https://www.google.nl")) {
                     Uri uri = Uri.parse(url);
-                    String token = uri.getQueryParameter("oauth_token");
                     String verifier = uri.getQueryParameter("oauth_verifier");
 
                     AsyncAccessTask accessTask = new AsyncAccessTask();
@@ -54,11 +59,19 @@ public class AuthorizationActivity extends AppCompatActivity {
         this.requestToken = oAuth1RequestToken;
     }
 
+    /**
+     * Deze methode laadt de authorization url.
+     * @param requestUrl de url die wordt geladen.
+     */
     public void setRequestUrl(String requestUrl) {
         url = requestUrl;
         wv.loadUrl(url);
     }
 
+    /**
+     * Deze methode slaat de access token op om deze later te kunnen gebruiken.
+     * @param accessToken
+     */
     public void saveAccessToken(OAuth1AccessToken accessToken) {
         String token = accessToken.getToken();
         String secret = accessToken.getTokenSecret();
@@ -69,6 +82,9 @@ public class AuthorizationActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    /**
+     * Deze klasse verzorgt het opvragen van de access token.
+     */
     private class AsyncAccessTask extends AsyncTask<String, Void, OAuth1AccessToken> {
         @Override
         protected OAuth1AccessToken doInBackground(String... params) {
@@ -79,8 +95,8 @@ public class AuthorizationActivity extends AppCompatActivity {
         }
 
         /**
-         * on post execute save the accestoken and go to the mainActivity
-         * @param oAuth1AccessToken our acces token
+         * on post execute sla de token op en ga naar de mainactivity
+         * @param oAuth1AccessToken onze acces token
          */
         @Override
         protected void onPostExecute(OAuth1AccessToken oAuth1AccessToken) {

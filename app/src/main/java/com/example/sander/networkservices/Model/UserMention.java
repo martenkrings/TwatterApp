@@ -1,7 +1,7 @@
 package com.example.sander.networkservices.Model;
 
 /**
- * Created by Sander on 13-5-2016.
+ * Model klasse voor een usermention.
  */
 public class UserMention extends Entitie {
     private String name;

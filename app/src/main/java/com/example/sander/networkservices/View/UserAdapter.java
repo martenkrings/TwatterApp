@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by Sander on 22-6-2016.
+ * Adapter voor een lijst gebruikers.
  */
 public class UserAdapter extends ArrayAdapter<User> {
     public UserAdapter(Context context, ArrayList<User> tweets) {
