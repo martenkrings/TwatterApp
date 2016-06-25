@@ -38,11 +38,8 @@ public class AuthorizationActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("https://www.google.nl")) {
                     Uri uri = Uri.parse(url);
-                    Log.d("url:", url);
                     String token = uri.getQueryParameter("oauth_token");
                     String verifier = uri.getQueryParameter("oauth_verifier");
-                    Log.d(TAG, "verifier: " + verifier);
-                    Log.d(TAG, "token: " + token);
 
                     AsyncAccessTask accessTask = new AsyncAccessTask();
                     accessTask.execute(verifier);
@@ -65,10 +62,6 @@ public class AuthorizationActivity extends AppCompatActivity {
     public void saveAccessToken(OAuth1AccessToken accessToken) {
         String token = accessToken.getToken();
         String secret = accessToken.getTokenSecret();
-
-        Log.d(TAG, "token: " + token);
-        Log.d(TAG, "secret: " + secret);
-
         SharedPreferences preferences = this.getSharedPreferences(getString(sharedPreferenceName), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("ACCESSTOKEN_TOKEN", token);
@@ -77,23 +70,21 @@ public class AuthorizationActivity extends AppCompatActivity {
     }
 
     private class AsyncAccessTask extends AsyncTask<String, Void, OAuth1AccessToken> {
-
         @Override
         protected OAuth1AccessToken doInBackground(String... params) {
-            Log.d("params[0]:", params[0]);
-
             OAuth1AccessToken accessToken =
                     MyOAuthService.getInstance().getService()
                             .getAccessToken(AuthorizationActivity.this.requestToken, params[0]);
-            //MyOAuthService.getInstance().getService().getRequestToken()
             return accessToken;
         }
 
+        /**
+         * on post execute save the accestoken and go to the mainActivity
+         * @param oAuth1AccessToken our acces token
+         */
         @Override
         protected void onPostExecute(OAuth1AccessToken oAuth1AccessToken) {
-            Log.d(TAG, "Ik zit nu in de postExcute");
             AuthorizationActivity.this.saveAccessToken(oAuth1AccessToken);
-            Log.d(TAG, "Ik ga nu terug naar de mainActivity");
             Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
             finish();
             startActivity(intent);
