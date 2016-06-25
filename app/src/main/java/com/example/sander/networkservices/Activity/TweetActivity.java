@@ -43,7 +43,6 @@ public class TweetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
-                finish();
                 startActivity(intent);
             }
         });
@@ -52,7 +51,6 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, ProfileActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -62,7 +60,6 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, SearchActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -72,7 +69,6 @@ public class TweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TweetActivity.this, TweetActivity.class);
-                finish();
                 startActivity(intent);
             }
         });

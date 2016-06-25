@@ -64,7 +64,6 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
-                finish();
                 startActivity(intent);
             }
         });
@@ -74,7 +73,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -84,7 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -95,7 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProfileActivity.this, FriendListActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -123,7 +119,6 @@ public class ProfileActivity extends AppCompatActivity {
                     } catch (TimeoutException e) {
                         Log.d(TAG, "TimeoutException: " + e.getMessage());
                     }
-                    finish();
                     startActivity(getIntent());
                 }
             }

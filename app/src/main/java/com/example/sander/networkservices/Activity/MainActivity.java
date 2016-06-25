@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 intent.putExtra("uitloggen", 1);
-                finish();
                 startActivity(intent);
             }
         });
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -70,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -85,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TweetActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -121,9 +117,14 @@ public class MainActivity extends AppCompatActivity {
             AsyncTimeLineTask asyncTimeLineTask = new AsyncTimeLineTask();
             asyncTimeLineTask.execute();
 
-            //wait for the asyncTimeLineTask
+            //get the user data
+            AsyncGetProfileInfoTask asyncGetProfileInfoTask = new AsyncGetProfileInfoTask();
+            asyncGetProfileInfoTask.execute();
+
+            //wait for the asyncTasks
             try {
                 asyncTimeLineTask.get(10000, TimeUnit.MILLISECONDS);
+                asyncGetProfileInfoTask.get(10000, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 Log.d(TAG, "InterruptedException: " + e.getMessage());
             } catch (ExecutionException e) {
@@ -132,9 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "TimeoutException: " + e.getMessage());
             }
 
-            //get the user data
-            AsyncGetProfileInfoTask asyncGetProfileInfoTask = new AsyncGetProfileInfoTask();
-            asyncGetProfileInfoTask.execute();
+
 
             if (TwatterApp.getInstance().getUserTimeLine() != null) {
                 adapter = new ListAdapter(this, TwatterApp.getInstance().getUserTimeLine());
